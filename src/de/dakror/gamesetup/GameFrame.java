@@ -189,7 +189,8 @@ public abstract class GameFrame extends EventListener
 		w.setSize(width, height);
 		w.setMinimumSize(new Dimension(width, height));
 		w.dispose();
-		w.setUndecorated(true);
+		w.setLocationRelativeTo(null);
+		w.setUndecorated(false);
 		w.setVisible(true);
 		w.createBufferStrategy(2);
 	}
@@ -197,7 +198,8 @@ public abstract class GameFrame extends EventListener
 	public void setWindowed()
 	{
 		w.dispose();
-		w.setUndecorated(true);
+		w.setUndecorated(false);
+		w.setLocationRelativeTo(null);
 		w.setVisible(true);
 		w.createBufferStrategy(2);
 	}
