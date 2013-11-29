@@ -7,7 +7,7 @@ import de.dakror.gamesetup.layer.Layer;
  */
 public abstract class Updater extends Thread
 {
-	public static final int TIMEOUT = 33;
+	public static int TIMEOUT = 16;
 	
 	public int tick, ticks;
 	long time;
