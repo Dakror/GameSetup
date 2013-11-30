@@ -91,6 +91,16 @@ public abstract class GameFrame extends EventListener
 		layers.add(l);
 	}
 	
+	public void removeLayer(Layer l)
+	{
+		layers.remove(l);
+	}
+	
+	public Layer getActiveLayer()
+	{
+		return layers.get(0);
+	}
+	
 	public void toggleLayer(Layer l)
 	{
 		for (Layer layer : layers)
