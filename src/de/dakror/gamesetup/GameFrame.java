@@ -98,6 +98,7 @@ public abstract class GameFrame extends EventListener
 	
 	public Layer getActiveLayer()
 	{
+		if (layers.size() == 0) return null;
 		return layers.get(0);
 	}
 	
