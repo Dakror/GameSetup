@@ -91,6 +91,16 @@ public abstract class GameFrame extends EventListener
 		layers.add(l);
 	}
 	
+	public void setLayer(Layer l)
+	{
+		for (Layer layer : layers)
+		{
+			if (!layer.consistent) removeLayer(layer);
+		}
+		
+		addLayer(l);
+	}
+	
 	public void removeLayer(Layer l)
 	{
 		layers.remove(l);
@@ -191,6 +201,7 @@ public abstract class GameFrame extends EventListener
 		w.setMinimumSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
 		w.dispose();
 		w.setUndecorated(true);
+		w.setExtendedState(JFrame.NORMAL);
 		w.setVisible(true);
 		w.createBufferStrategy(2);
 	}

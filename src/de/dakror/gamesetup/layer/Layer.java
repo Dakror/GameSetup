@@ -19,11 +19,13 @@ public abstract class Layer extends EventListener implements Drawable
 	public CopyOnWriteArrayList<Component> components;
 	protected boolean modal;
 	protected boolean enabled;
+	public boolean consistent;
 	
 	public Layer()
 	{
 		enabled = true;
 		modal = false;
+		consistent = false;
 		components = new CopyOnWriteArrayList<>();
 	}
 	
