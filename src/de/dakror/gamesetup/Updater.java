@@ -1,6 +1,5 @@
 package de.dakror.gamesetup;
 
-import de.dakror.gamesetup.layer.Layer;
 
 /**
  * @author Dakror
@@ -42,8 +41,8 @@ public abstract class Updater extends Thread
 				else GameFrame.currentFrame.fade = false;
 			}
 			
-			for (Layer l : GameFrame.currentFrame.layers)
-				l.update(tick);
+			for (int i = GameFrame.currentFrame.layers.size() - 1; i >= 0; i--)
+				GameFrame.currentFrame.layers.get(i).update(tick);
 			
 			update();
 			

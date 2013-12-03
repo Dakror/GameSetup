@@ -88,7 +88,7 @@ public abstract class GameFrame extends EventListener
 	public void addLayer(Layer l)
 	{
 		l.init();
-		layers.add(l);
+		layers.add(0, l);
 	}
 	
 	public void setLayer(Layer l)
@@ -124,7 +124,7 @@ public abstract class GameFrame extends EventListener
 		}
 		
 		l.init();
-		layers.add(l);
+		layers.add(0, l);
 		
 	}
 	
@@ -189,8 +189,8 @@ public abstract class GameFrame extends EventListener
 	
 	public void drawLayers(Graphics2D g)
 	{
-		for (Layer l : layers)
-			l.draw(g);
+		for (int i = layers.size() - 1; i >= 0; i--)
+			layers.get(i).draw(g);
 	}
 	
 	public abstract void draw(Graphics2D g);
@@ -229,8 +229,9 @@ public abstract class GameFrame extends EventListener
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
-		for (Layer l : layers)
+		for (int i = layers.size() - 1; i >= 0; i--)
 		{
+			Layer l = layers.get(i);
 			l.keyPressed(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
@@ -239,8 +240,9 @@ public abstract class GameFrame extends EventListener
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		for (Layer l : layers)
+		for (int i = layers.size() - 1; i >= 0; i--)
 		{
+			Layer l = layers.get(i);
 			l.keyReleased(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
@@ -249,8 +251,9 @@ public abstract class GameFrame extends EventListener
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
-		for (Layer l : layers)
+		for (int i = layers.size() - 1; i >= 0; i--)
 		{
+			Layer l = layers.get(i);
 			l.keyTyped(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
@@ -262,8 +265,9 @@ public abstract class GameFrame extends EventListener
 		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		mouse = e.getPoint();
 		
-		for (Layer l : layers)
+		for (int i = layers.size() - 1; i >= 0; i--)
 		{
+			Layer l = layers.get(i);
 			l.mouseMoved(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
@@ -274,8 +278,9 @@ public abstract class GameFrame extends EventListener
 	{
 		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		
-		for (Layer l : layers)
+		for (int i = layers.size() - 1; i >= 0; i--)
 		{
+			Layer l = layers.get(i);
 			l.mousePressed(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
@@ -285,8 +290,9 @@ public abstract class GameFrame extends EventListener
 	public void mouseReleased(MouseEvent e)
 	{
 		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
-		for (Layer l : layers)
+		for (int i = layers.size() - 1; i >= 0; i--)
 		{
+			Layer l = layers.get(i);
 			l.mouseReleased(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
@@ -296,8 +302,9 @@ public abstract class GameFrame extends EventListener
 	public void mouseClicked(MouseEvent e)
 	{
 		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
-		for (Layer l : layers)
+		for (int i = layers.size() - 1; i >= 0; i--)
 		{
+			Layer l = layers.get(i);
 			l.mouseClicked(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
@@ -307,8 +314,9 @@ public abstract class GameFrame extends EventListener
 	public void mouseDragged(MouseEvent e)
 	{
 		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
-		for (Layer l : layers)
+		for (int i = layers.size() - 1; i >= 0; i--)
 		{
+			Layer l = layers.get(i);
 			l.mouseDragged(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
