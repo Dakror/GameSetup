@@ -45,6 +45,15 @@ public class Helper
 		return new int[] { x, fm.stringWidth(s) };
 	}
 	
+	public static int[] drawRightAlignedString(String s, int x1, int y, Graphics2D g, int size)
+	{
+		FontMetrics fm = g.getFontMetrics(g.getFont().deriveFont((float) size));
+		int x = x1 - fm.stringWidth(s);
+		drawString(s, x, y, g, size);
+		
+		return new int[] { x, fm.stringWidth(s) };
+	}
+	
 	public static void drawString(String s, int x, int y, Graphics2D g, int size)
 	{
 		Font old = g.getFont();
@@ -123,13 +132,18 @@ public class Helper
 	{
 		BufferedImage shadow = GameFrame.getImage("gui/shadow.png");
 		
+		int size = 32;
 		if (width == height && width < 64)
 		{
 			g.drawImage(shadow, x, y, width, height, GameFrame.w);
 			return;
 		}
+		else if (height < 64)
+		{
+			shadow = toBufferedImage(shadow.getScaledInstance(height * 3 / 2, height * 3 / 2, Image.SCALE_FAST));
+			size = height / 2;
+		}
 		
-		int size = 32;
 		
 		drawImage(shadow, x, y, size, size, 0, 0, size, size, g); // lt
 		drawImage(shadow, x + width - size, y, size, size, size * 2, 0, size, size, g); // rt
@@ -200,6 +214,14 @@ public class Helper
 	public static void drawImageCenteredRelativeScaled(Image img, int y, int scaleW, int scaleH, int nowW, int nowH, Graphics2D g)
 	{
 		drawImageCenteredRelativeScaled(img, y, img.getWidth(null), img.getHeight(null), scaleW, scaleH, nowW, nowH, g);
+	}
+	
+	public static BufferedImage toBufferedImage(Image img)
+	{
+		BufferedImage image = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		image.getGraphics().drawImage(img, 0, 0, null);
+		
+		return image;
 	}
 	
 	/**
