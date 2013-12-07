@@ -22,7 +22,7 @@ public abstract class ClickableComponent extends Component
 		if (contains(e.getX(), e.getY()) && enabled)
 		{
 			triggerEvents();
-			state = 0;
+			state = 2;
 		}
 	}
 	

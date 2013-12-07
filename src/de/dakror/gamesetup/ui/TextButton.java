@@ -1,5 +1,6 @@
 package de.dakror.gamesetup.ui;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import de.dakror.gamesetup.GameFrame;
@@ -27,8 +28,19 @@ public class TextButton extends ClickableComponent
 	@Override
 	public void draw(Graphics2D g)
 	{
-		Helper.drawImage(GameFrame.getImage("gui/gui.png"), x, y, width, height, 12, state == 0 ? 124 : (state == 1 ? 202 : 280), WIDTH, HEIGHT, g);
+		int ty = state == 0 ? 124 : (state == 1 ? 202 : 280);
+		
+		if (!enabled) ty = 358;
+		Helper.drawImage(GameFrame.getImage("gui/gui.png"), x, y, width, height, 12, ty, WIDTH, HEIGHT, g);
+		
+		Color c = g.getColor();
+		
+		if (!enabled) g.setColor(Color.gray);
+		else g.setColor(Color.white);
+		
 		Helper.drawHorizontallyCenteredString(text, x, width, y + height / 2 + shiftY, g, size);
+		
+		g.setColor(c);
 	}
 	
 	@Override

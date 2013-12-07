@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.URL;
+import java.util.ArrayList;
 
 import de.dakror.gamesetup.GameFrame;
 
@@ -111,7 +112,6 @@ public class Helper
 	{
 		if (shadow) drawShadow(x - 10, y - 10, width + 20, height + 20, g);
 		Image image = GameFrame.getImage(wood ? "gui/wood.png" : "gui/paper.png");
-		
 		
 		Shape oldClip = g.getClip();
 		g.setClip(x, y, width, height);
@@ -249,9 +249,10 @@ public class Helper
 	public static void drawStringWrapped(String raw, int x, int y, int maxWidth, Graphics2D g, int size)
 	{
 		String[] words = raw.split(" ");
-		
+		ArrayList<String> lines = new ArrayList<>();
 		int lW = 0;
-		int lY = 0;
+		
+		String line = "";
 		for (int i = 0; i < words.length; i++)
 		{
 			String word = words[i] + " ";
@@ -259,11 +260,49 @@ public class Helper
 			if (w + lW > maxWidth)
 			{
 				lW = 0;
-				lY += size * 0.75f;
+				lines.add(line);
+				line = "";
 			}
 			
-			drawString(word, x + lW, y + lY, g, 24);
+			line += word;
 			lW += w;
+		}
+		
+		lines.add(line);
+		
+		for (int i = 0; i < lines.size(); i++)
+		{
+			drawString(lines.get(i), x, y + size * i, g, size);
+		}
+	}
+	
+	public static void drawHorizontallyCenteredStringWrapped(String raw, int x, int width, int y, int maxWidth, Graphics2D g, int size)
+	{
+		String[] words = raw.split(" ");
+		ArrayList<String> lines = new ArrayList<>();
+		int lW = 0;
+		
+		String line = "";
+		for (int i = 0; i < words.length; i++)
+		{
+			String word = words[i] + " ";
+			int w = g.getFontMetrics(g.getFont().deriveFont((float) size)).stringWidth(word);
+			if (w + lW > maxWidth)
+			{
+				lW = 0;
+				lines.add(line);
+				line = "";
+			}
+			
+			line += word;
+			lW += w;
+		}
+		
+		lines.add(line);
+		
+		for (int i = 0; i < lines.size(); i++)
+		{
+			drawHorizontallyCenteredString(lines.get(i), x, width, y + size * i, g, size);
 		}
 	}
 	

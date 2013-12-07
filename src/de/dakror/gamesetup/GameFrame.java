@@ -9,6 +9,8 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
@@ -55,6 +57,15 @@ public abstract class GameFrame extends EventListener
 		w.addMouseListener(this);
 		w.addMouseMotionListener(this);
 		w.addMouseWheelListener(this);
+		w.addWindowStateListener(new WindowStateListener()
+		{
+			
+			@Override
+			public void windowStateChanged(WindowEvent e)
+			{
+				w.setExtendedState(JFrame.NORMAL);
+			}
+		});
 		w.setBackground(Color.black);
 		w.setForeground(Color.white);
 		w.getContentPane().setBackground(Color.black);
@@ -197,21 +208,20 @@ public abstract class GameFrame extends EventListener
 	
 	public void setFullscreen()
 	{
-		w.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
-		w.setMinimumSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
 		w.dispose();
-		w.setUndecorated(true);
+		if (w.getWidth() == 0) w.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
+		
 		w.setExtendedState(JFrame.NORMAL);
+		w.setUndecorated(true);
 		w.setVisible(true);
 		w.createBufferStrategy(2);
 	}
 	
 	public void setWindowed(int width, int height)
 	{
+		w.dispose();
 		w.setSize(width, height);
 		w.setMinimumSize(new Dimension(width, height));
-		w.dispose();
-		w.setLocationRelativeTo(null);
 		w.setUndecorated(false);
 		w.setVisible(true);
 		w.createBufferStrategy(2);
@@ -221,7 +231,6 @@ public abstract class GameFrame extends EventListener
 	{
 		w.dispose();
 		w.setUndecorated(false);
-		w.setLocationRelativeTo(null);
 		w.setVisible(true);
 		w.createBufferStrategy(2);
 	}
