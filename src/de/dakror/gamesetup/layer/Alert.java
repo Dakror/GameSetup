@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import de.dakror.gamesetup.GameFrame;
 import de.dakror.gamesetup.ui.ClickEvent;
-import de.dakror.gamesetup.ui.TextButton;
+import de.dakror.gamesetup.ui.button.TextButton;
 import de.dakror.gamesetup.util.Helper;
 
 /**

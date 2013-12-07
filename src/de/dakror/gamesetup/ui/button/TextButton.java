@@ -1,9 +1,10 @@
-package de.dakror.gamesetup.ui;
+package de.dakror.gamesetup.ui.button;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
 import de.dakror.gamesetup.GameFrame;
+import de.dakror.gamesetup.ui.ClickableComponent;
 import de.dakror.gamesetup.util.Helper;
 
 /**
