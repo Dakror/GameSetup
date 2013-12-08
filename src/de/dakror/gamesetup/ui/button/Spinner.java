@@ -23,7 +23,7 @@ public class Spinner extends Component
 	
 	public int min, max, value, step;
 	
-	ArrowButton minus, plus;
+	public ArrowButton minus, plus;
 	
 	public Spinner(int x, int y, int width, int min, int max, int step, int value)
 	{
@@ -71,8 +71,16 @@ public class Spinner extends Component
 	@Override
 	public void update(int tick)
 	{
-		plus.enabled = value != max;
-		minus.enabled = value != min;
+		if (!enabled)
+		{
+			plus.enabled = false;
+			minus.enabled = false;
+		}
+		else
+		{
+			plus.enabled = value != max;
+			minus.enabled = value != min;
+		}
 		
 		if (timeDown == 0) return;
 		

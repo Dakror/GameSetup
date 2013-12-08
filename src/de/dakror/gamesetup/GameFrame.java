@@ -200,8 +200,13 @@ public abstract class GameFrame extends EventListener
 	
 	public void drawLayers(Graphics2D g)
 	{
-		for (int i = layers.size() - 1; i >= 0; i--)
-			layers.get(i).draw(g);
+		try
+		{
+			for (int i = layers.size() - 1; i >= 0; i--)
+				layers.get(i).draw(g);
+		}
+		catch (ArrayIndexOutOfBoundsException e)
+		{}
 	}
 	
 	public abstract void draw(Graphics2D g);
