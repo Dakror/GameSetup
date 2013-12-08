@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -73,6 +76,31 @@ public class InputField extends ClickableComponent
 	public void keyPressed(KeyEvent e)
 	{
 		if (state != 1 || !enabled) return;
+		
+		if (e.getKeyCode() == KeyEvent.VK_V && e.isControlDown() && !password)
+		{
+			try
+			{
+				text += Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+			}
+			catch (Exception e1)
+			{
+				e1.printStackTrace();
+			}
+			return;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_C && e.isControlDown() && !password)
+		{
+			try
+			{
+				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(text), null);
+			}
+			catch (Exception e1)
+			{
+				e1.printStackTrace();
+			}
+			return;
+		}
 		
 		String key = new String(new char[] { e.getKeyChar() });
 		if (allowed.contains(key) && text.length() < maxlength) text += key;
