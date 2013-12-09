@@ -82,7 +82,7 @@ public abstract class Component extends EventListener implements Drawable
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		if (contains(e.getX(), e.getY())) state = 1;
+		if (contains(e.getX(), e.getY()) && enabled) state = 1;
 	}
 	
 	@Override

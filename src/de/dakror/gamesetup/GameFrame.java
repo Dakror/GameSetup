@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 import java.awt.image.BufferStrategy;
@@ -324,6 +325,17 @@ public abstract class GameFrame extends EventListener
 		for (Layer l : layers)
 		{
 			l.mouseDragged(e);
+			if (l.isModal() && l.isEnabled()) break;
+		}
+	}
+	
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e)
+	{
+		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
+		for (Layer l : layers)
+		{
+			l.mouseWheelMoved(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
 	}
