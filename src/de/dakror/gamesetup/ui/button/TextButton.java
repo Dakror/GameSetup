@@ -16,8 +16,8 @@ public class TextButton extends ClickableComponent
 	public static final int WIDTH = 288;
 	public static final int HEIGHT = 59;
 	
-	public static int size = 30;
-	public static int shiftY = 9;
+	public int size = 30;
+	public int shiftY = 9;
 	
 	boolean toggle;
 	boolean selected;
@@ -72,6 +72,16 @@ public class TextButton extends ClickableComponent
 		if (!toggle) return false;
 		
 		return selected;
+	}
+	
+	public String getText()
+	{
+		return text;
+	}
+	
+	public void setText(String text)
+	{
+		this.text = text;
 	}
 	
 	public void setToggleMode(boolean toggle)
