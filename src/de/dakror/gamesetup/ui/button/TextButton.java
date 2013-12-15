@@ -74,6 +74,11 @@ public class TextButton extends ClickableComponent
 		return selected;
 	}
 	
+	public void setSelected(boolean b)
+	{
+		selected = b;
+	}
+	
 	public String getText()
 	{
 		return text;
