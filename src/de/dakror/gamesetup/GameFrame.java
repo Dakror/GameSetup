@@ -14,6 +14,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -29,6 +32,8 @@ import de.dakror.gamesetup.util.Helper;
  */
 public abstract class GameFrame extends EventListener
 {
+	public static File screenshotDir;
+	
 	public static JFrame w;
 	public static GameFrame currentFrame;
 	public Updater updater;
@@ -43,6 +48,7 @@ public abstract class GameFrame extends EventListener
 	float speed = 0;
 	float fadeTo = 0;
 	boolean fade = false;
+	protected boolean screenshot = false;
 	
 	public CopyOnWriteArrayList<Layer> layers;
 	
@@ -169,12 +175,20 @@ public abstract class GameFrame extends EventListener
 		
 		g.translate(w.getInsets().left, w.getInsets().top);
 		
+		g.clearRect(0, 0, getWidth(), getHeight());
+		
+		BufferedImage screenshot = null;
+		if (this.screenshot)
+		{
+			screenshot = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+			g = (Graphics2D) screenshot.getGraphics();
+			g.setFont(w.getFont());
+		}
+		
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		
-		g.clearRect(0, 0, getWidth(), getHeight());
 		
 		draw(g);
 		
@@ -185,6 +199,22 @@ public abstract class GameFrame extends EventListener
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
 		g.setComposite(c1);
+		
+		if (screenshot != null)
+		{
+			try
+			{
+				screenshotDir.mkdirs();
+				File file = new File(screenshotDir, "screenshot " + new Date().toString().replace(":", "-") + ".png");
+				ImageIO.write(screenshot, "png", file);
+				this.screenshot = false;
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
 		g.dispose();
 		
 		try
@@ -259,6 +289,8 @@ public abstract class GameFrame extends EventListener
 			l.keyReleased(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_F12 && screenshotDir != null) screenshot = true;
 	}
 	
 	@Override
