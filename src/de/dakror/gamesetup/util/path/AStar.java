@@ -56,7 +56,7 @@ public abstract class AStar
 					break; // found way
 				}
 				
-				method.handleNeighbors(activeNode, target, closedList, openList);
+				method.handleNeighbors(activeNode, target, openList, closedList);
 			}
 			
 			ArrayList<Node> path = new ArrayList<>();

@@ -59,9 +59,19 @@ public class Path
 		return index;
 	}
 	
+	public Vector getNode(int index)
+	{
+		return nodes.get(index);
+	}
+	
+	public int getNodeCount()
+	{
+		return nodes.size();
+	}
+	
 	public boolean isPathComplete()
 	{
-		return index == nodes.size();
+		return index >= nodes.size();
 	}
 	
 	public void mul(float sc)
