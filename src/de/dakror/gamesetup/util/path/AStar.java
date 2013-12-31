@@ -15,9 +15,7 @@ public abstract class AStar
 	public static ArrayList<Node> closedList;
 	static Vector target;
 	
-	public static AStar currentAStar;
-	
-	public static Path getPath(Vector start, Vector t)
+	public static Path getPath(Vector start, Vector t, AStar method)
 	{
 		try
 		{
@@ -58,7 +56,7 @@ public abstract class AStar
 					break; // found way
 				}
 				
-				currentAStar.handleNeighbors(activeNode, target, closedList, openList);
+				method.handleNeighbors(activeNode, target, closedList, openList);
 			}
 			
 			ArrayList<Node> path = new ArrayList<>();
