@@ -86,6 +86,31 @@ public class Path
 			v.add(new Vector(x, y));
 	}
 	
+	public boolean equals(Path o)
+	{
+		return equalsWithMalus(o, 0);
+	}
+	
+	public boolean equals2(Path o)
+	{
+		return equalsWithMalus(o, 0) || equalsWithMalus(o, 1) || equalsWithMalus(o, -1);
+	}
+	
+	public boolean equalsWithMalus(Path o, int malus)
+	{
+		for (int i = 0; i < Math.min(nodes.size(), o.nodes.size()); i++)
+		{
+			try
+			{
+				if (!nodes.get(index + i + malus).equals(o.nodes.get(o.index + i))) return false;
+			}
+			catch (IndexOutOfBoundsException e)
+			{}
+		}
+		
+		return true;
+	}
+	
 	public void reset()
 	{
 		index = 0;
