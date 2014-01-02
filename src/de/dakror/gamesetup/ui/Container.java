@@ -34,10 +34,13 @@ public abstract class Container extends EventListener implements Drawable
 	public CopyOnWriteArrayList<Component> components;
 	protected boolean enabled;
 	
+	public int translateX, translateY;
+	
 	public Container()
 	{
 		components = new CopyOnWriteArrayList<>();
 		enabled = true;
+		translateX = translateY = 0;
 	}
 	
 	protected void drawComponents(Graphics2D g)
@@ -73,8 +76,12 @@ public abstract class Container extends EventListener implements Drawable
 	{
 		if (!enabled) return;
 		
+		e.translatePoint(translateX, translateY);
+		
 		for (Component c : components)
 			c.mouseDragged(e);
+		
+		e.translatePoint(-translateX, -translateY);
 	}
 	
 	@Override
@@ -82,8 +89,12 @@ public abstract class Container extends EventListener implements Drawable
 	{
 		if (!enabled) return;
 		
+		e.translatePoint(translateX, translateY);
+		
 		for (Component c : components)
 			c.mouseMoved(e);
+		
+		e.translatePoint(-translateX, -translateY);
 	}
 	
 	@Override
@@ -91,8 +102,12 @@ public abstract class Container extends EventListener implements Drawable
 	{
 		if (!enabled) return;
 		
+		e.translatePoint(translateX, translateY);
+		
 		for (Component c : components)
 			c.mouseClicked(e);
+		
+		e.translatePoint(-translateX, -translateY);
 	}
 	
 	@Override
@@ -100,8 +115,12 @@ public abstract class Container extends EventListener implements Drawable
 	{
 		if (!enabled) return;
 		
+		e.translatePoint(translateX, translateY);
+		
 		for (Component c : components)
 			c.mousePressed(e);
+		
+		e.translatePoint(-translateX, -translateY);
 	}
 	
 	@Override
@@ -109,8 +128,12 @@ public abstract class Container extends EventListener implements Drawable
 	{
 		if (!enabled) return;
 		
+		e.translatePoint(translateX, translateY);
+		
 		for (Component c : components)
 			c.mouseReleased(e);
+		
+		e.translatePoint(-translateX, -translateY);
 	}
 	
 	@Override
@@ -118,8 +141,12 @@ public abstract class Container extends EventListener implements Drawable
 	{
 		if (!enabled) return;
 		
+		e.translatePoint(translateX, translateY);
+		
 		for (Component c : components)
 			c.mouseEntered(e);
+		
+		e.translatePoint(-translateX, -translateY);
 	}
 	
 	@Override
@@ -127,8 +154,12 @@ public abstract class Container extends EventListener implements Drawable
 	{
 		if (!enabled) return;
 		
+		e.translatePoint(translateX, translateY);
+		
 		for (Component c : components)
 			c.mouseExited(e);
+		
+		e.translatePoint(-translateX, -translateY);
 	}
 	
 	@Override

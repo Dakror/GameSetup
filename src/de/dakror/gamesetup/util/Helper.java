@@ -1,5 +1,8 @@
 package de.dakror.gamesetup.util;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -7,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -184,6 +188,27 @@ public class Helper
 		Dimension s = getRelativeScaled(new Dimension(width, height), new Dimension(scaleW, scaleH), new Dimension(nowW, nowH));
 		
 		g.drawImage(img, (GameFrame.getWidth() - s.width) / 2, y, s.width, s.height, GameFrame.w);
+	}
+	
+	public static void drawCooldownCircle(int x, int y, int size, float alpha, Color color, float percentage, Graphics2D g)
+	{
+		Arc2D arc = new Arc2D.Float(x, y, size, size, 90, percentage * 360, Arc2D.PIE);
+		Composite oc = g.getComposite();
+		Color o = g.getColor();
+		Shape c = g.getClip();
+		
+		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+		g.setColor(color);
+		
+		int s = (int) (size / Math.sqrt(2));
+		
+		g.setClip(new Rectangle(x + (size - s) / 2, y + (size - s) / 2, s, s));
+		
+		g.fill(arc);
+		
+		g.setComposite(oc);
+		g.setColor(o);
+		g.setClip(c);
 	}
 	
 	public static Dimension getRelativeScaled(Dimension src, Dimension scale, Dimension target)
