@@ -111,6 +111,25 @@ public class Path
 		return true;
 	}
 	
+	@Override
+	public String toString()
+	{
+		return nodes.toString();
+	}
+	
+	@Override
+	public Path clone()
+	{
+		Vector[] v = new Vector[nodes.size()];
+		for (int i = 0; i < nodes.size(); i++)
+			v[i] = nodes.get(i).clone();
+		
+		Path p = new Path(v);
+		p.index = index;
+		
+		return p;
+	}
+	
 	public void reset()
 	{
 		index = 0;
