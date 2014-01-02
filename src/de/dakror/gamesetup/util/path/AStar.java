@@ -15,7 +15,7 @@ public abstract class AStar
 	public static ArrayList<Node> closedList;
 	static Vector target;
 	
-	public static Path getPath(Vector start, Vector t, AStar method)
+	public synchronized static Path getPath(Vector start, Vector t, AStar method)
 	{
 		try
 		{
