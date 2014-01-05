@@ -148,7 +148,6 @@ public class Helper
 			size = height / 2;
 		}
 		
-		
 		drawImage(shadow, x, y, size, size, 0, 0, size, size, g); // lt
 		drawImage(shadow, x + width - size, y, size, size, size * 2, 0, size, size, g); // rt
 		drawImage(shadow, x, y + height - size, size, size, 0, size * 2, size, size, g); // lb

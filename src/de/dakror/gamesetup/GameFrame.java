@@ -41,8 +41,8 @@ public abstract class GameFrame extends EventListener
 	
 	static HashMap<String, BufferedImage> imageCache = new HashMap<>();
 	
-	public int frames;
-	public long start;
+	public int frames, framesSolid;
+	public long start, last;
 	
 	public float alpha = 0;
 	float speed = 0;
@@ -100,7 +100,7 @@ public abstract class GameFrame extends EventListener
 	
 	public int getFPS()
 	{
-		return Math.round(frames / ((System.currentTimeMillis() - start) / 1000f));
+		return framesSolid;
 	}
 	
 	public void addLayer(Layer l)
@@ -156,7 +156,13 @@ public abstract class GameFrame extends EventListener
 	public void main()
 	{
 		if (start == 0) start = System.currentTimeMillis();
-		if (frames == Integer.MAX_VALUE) frames = 0;
+		if (last == 0) last = System.currentTimeMillis();
+		if (System.currentTimeMillis() - last >= 1000)
+		{
+			framesSolid = frames;
+			frames = 0;
+			last = System.currentTimeMillis();
+		}
 		
 		if (!w.isVisible()) return;
 		
