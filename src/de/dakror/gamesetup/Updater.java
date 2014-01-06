@@ -41,6 +41,8 @@ public abstract class Updater extends Thread
 				else GameFrame.currentFrame.fade = false;
 			}
 			
+			updateBefore();
+			
 			for (int i = GameFrame.currentFrame.layers.size() - 1; i >= 0; i--)
 				GameFrame.currentFrame.layers.get(i).update(tick);
 			
@@ -56,6 +58,9 @@ public abstract class Updater extends Thread
 			{}
 		}
 	}
+	
+	public void updateBefore()
+	{}
 	
 	public abstract void update();
 }
