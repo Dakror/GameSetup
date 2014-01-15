@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import de.dakror.gamesetup.GameFrame;
@@ -449,5 +450,19 @@ public class Helper
 	{
 		if (i % step >= step / 2.0f) return i + (step - (i % step));
 		else return i - (i % step);
+	}
+	
+	public static String formatBinarySize(long size, int digits)
+	{
+		final String[] levels = { "", "K", "M", "G", "T" };
+		for (int i = levels.length - 1; i > -1; i--)
+			if (size > (long) Math.pow(1024, i))
+			{
+				DecimalFormat df = new DecimalFormat();
+				df.setMaximumFractionDigits(digits);
+				df.setMinimumFractionDigits(digits);
+				return df.format(size / Math.pow(1024, i)) + levels[i] + "B";
+			}
+		return null;
 	}
 }
