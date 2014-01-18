@@ -391,24 +391,22 @@ public abstract class GameFrame extends EventListener
 	public static BufferedImage getImage(String p)
 	{
 		if (imageCache.containsKey(p)) return imageCache.get(p);
-		else
-		{
-			try
-			{
-				BufferedImage i = ImageIO.read(GameFrame.class.getResource("/img/" + p));
-				imageCache.put(p, i);
-				
-				return i;
-			}
-			catch (Exception e)
-			{
-				return null;
-			}
-		}
+		BufferedImage img = currentFrame.loadImage(p);
+		imageCache.put(p, img);
+		return img;
 	}
 	
-	public static void cacheImage(String p, BufferedImage img)
+	public BufferedImage loadImage(String p)
 	{
-		imageCache.put(p, img);
+		try
+		{
+			BufferedImage i = ImageIO.read(GameFrame.class.getResource("/img/" + p));
+			
+			return i;
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
 	}
 }
