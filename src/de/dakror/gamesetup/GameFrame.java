@@ -194,13 +194,16 @@ public abstract class GameFrame extends EventListener
 		
 		draw(g);
 		
-		Composite c1 = g.getComposite();
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, getWidth(), getHeight());
-		
-		g.setComposite(c1);
+		if (alpha > 0)
+		{
+			Composite c1 = g.getComposite();
+			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+			
+			g.setColor(Color.black);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			
+			g.setComposite(c1);
+		}
 		
 		if (screenshot != null)
 		{
