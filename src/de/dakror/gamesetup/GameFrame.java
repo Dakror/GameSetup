@@ -399,7 +399,7 @@ public abstract class GameFrame extends EventListener
 	{
 		try
 		{
-			BufferedImage i = ImageIO.read(GameFrame.class.getResource("/img/" + p));
+			BufferedImage i = ImageIO.read(GameFrame.class.getResource((p.startsWith("/") ? "" : "/img/") + p));
 			
 			return i;
 		}
