@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.zip.DataFormatException;
@@ -85,6 +86,23 @@ public class Compressor
 		{
 			byte[] fileData = new byte[(int) f.length()];
 			DataInputStream dis = new DataInputStream(new FileInputStream(f));
+			dis.readFully(fileData);
+			dis.close();
+			return fileData;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static byte[] getURLContentAsByteArray(URL url)
+	{
+		try
+		{
+			byte[] fileData = new byte[url.openConnection().getContentLength()];
+			DataInputStream dis = new DataInputStream(url.openStream());
 			dis.readFully(fileData);
 			dis.close();
 			return fileData;
