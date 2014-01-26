@@ -394,7 +394,7 @@ public class Helper
 		{
 			BufferedReader br = new BufferedReader(new FileReader(f));
 			while ((line = br.readLine()) != null)
-				res += line;
+				res += line + "\r\n";
 			br.close();
 		}
 		catch (IOException e)
@@ -411,7 +411,7 @@ public class Helper
 		{
 			BufferedReader br = new BufferedReader(new InputStreamReader(u.openStream()));
 			while ((line = br.readLine()) != null)
-				res += line;
+				res += line + "\r\n";
 			br.close();
 		}
 		catch (IOException e)
