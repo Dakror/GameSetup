@@ -18,7 +18,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.URL;
@@ -433,7 +435,21 @@ public class Helper
 		}
 	}
 	
+	public static void copyInputStream(InputStream in, OutputStream out) throws IOException
+	{
+		byte[] buffer = new byte[1024];
+		int len = in.read(buffer);
+		while (len >= 0)
+		{
+			out.write(buffer, 0, len);
+			len = in.read(buffer);
+		}
+		in.close();
+		out.close();
+	}
+	
 	// -- math helper methods -- //
+	
 	public static Dimension scaleTo(Dimension input, Dimension wanted)
 	{
 		float rw = 0;
