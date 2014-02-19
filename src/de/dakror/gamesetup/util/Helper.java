@@ -436,6 +436,23 @@ public class Helper
 		return res;
 	}
 	
+	public static String getURLContent(URL u, String charset)
+	{
+		String res = "", line = "";
+		try
+		{
+			BufferedReader br = new BufferedReader(new InputStreamReader(u.openStream(), charset));
+			while ((line = br.readLine()) != null)
+				res += line + "\r\n";
+			br.close();
+		}
+		catch (IOException e)
+		{
+			return null;
+		}
+		return res;
+	}
+	
 	public static boolean isInternetReachable()
 	{
 		try
