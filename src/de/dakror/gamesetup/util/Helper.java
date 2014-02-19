@@ -389,6 +389,19 @@ public class Helper
 		{}
 	}
 	
+	public static void setFileContent(File f, String s, String charset)
+	{
+		f.getParentFile().mkdirs();
+		try
+		{
+			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(f), charset);
+			osw.write(s);
+			osw.close();
+		}
+		catch (Exception e)
+		{}
+	}
+	
 	public static String getFileContent(File f)
 	{
 		String res = "", line = "";
