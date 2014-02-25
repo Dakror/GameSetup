@@ -274,7 +274,7 @@ public class Helper
 			drawImage(filling, i, y, 1, 23, 6, 0, 1, 23, g);
 	}
 	
-	public static void drawStringWrapped(String raw, int x, int y, int maxWidth, Graphics2D g, int size)
+	public static int drawStringWrapped(String raw, int x, int y, int maxWidth, Graphics2D g, int size)
 	{
 		String[] words = raw.split(" ");
 		ArrayList<String> lines = new ArrayList<>();
@@ -302,6 +302,8 @@ public class Helper
 		{
 			drawString(lines.get(i), x, y + size * i, g, size);
 		}
+		
+		return lines.size();
 	}
 	
 	public static void drawHorizontallyCenteredStringWrapped(String raw, int x, int width, int y, int maxWidth, Graphics2D g, int size)
