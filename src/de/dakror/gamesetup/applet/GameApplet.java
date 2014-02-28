@@ -1,13 +1,15 @@
 package de.dakror.gamesetup.applet;
 
-import java.applet.Applet;
 import java.awt.AlphaComposite;
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.image.BufferStrategy;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import javax.swing.JApplet;
 
 import de.dakror.gamesetup.GameFrame;
 import de.dakror.gamesetup.util.Helper;
@@ -19,10 +21,10 @@ import de.dakror.gamesetup.util.Helper;
 public abstract class GameApplet extends GameFrame
 {
 	public static GameApplet currentApplet;
+	
 	static Dimension size;
 	
-	Graphics2D g;
-	Image offImg;
+	protected Canvas canvas;
 	
 	public GameApplet()
 	{
@@ -34,17 +36,20 @@ public abstract class GameApplet extends GameFrame
 	public void init(String title)
 	{}
 	
-	public void init(Applet applet)
+	public void init(JApplet applet)
 	{
 		size = applet.getSize();
+		canvas = new Canvas();
+		canvas.setSize(applet.getSize());
+		applet.add(canvas);
+		canvas.createBufferStrategy(2);
+		
 		applet.addKeyListener(this);
 		applet.addMouseListener(this);
 		applet.addMouseMotionListener(this);
 		applet.addMouseWheelListener(this);
 		applet.setBackground(Color.black);
 		applet.setForeground(Color.white);
-		
-		offImg = applet.createImage(size.width, size.height);
 		
 		frames = 0;
 		start = 0;
@@ -69,11 +74,7 @@ public abstract class GameApplet extends GameFrame
 	{}
 	
 	@Override
-	@Deprecated
 	public void main()
-	{}
-	
-	public void main(Graphics2D g)
 	{
 		if (start == 0) start = System.currentTimeMillis();
 		if (last == 0) last = System.currentTimeMillis();
@@ -83,6 +84,21 @@ public abstract class GameApplet extends GameFrame
 			frames = 0;
 			last = System.currentTimeMillis();
 		}
+		
+		BufferStrategy s = null;
+		Graphics2D g = null;
+		
+		try
+		{
+			s = canvas.getBufferStrategy();
+			g = (Graphics2D) s.getDrawGraphics();
+		}
+		catch (Exception e)
+		{
+			return;
+		}
+		
+		g.clearRect(0, 0, getWidth(), getHeight());
 		
 		Helper.setRenderingHints(g, true);
 		
@@ -97,6 +113,17 @@ public abstract class GameApplet extends GameFrame
 			g.fillRect(0, 0, getWidth(), getHeight());
 			
 			g.setComposite(c1);
+		}
+		
+		g.dispose();
+		
+		try
+		{
+			if (!s.contentsLost()) s.show();
+		}
+		catch (Exception e)
+		{
+			return;
 		}
 		
 		frames++;

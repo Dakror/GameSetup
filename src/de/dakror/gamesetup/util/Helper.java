@@ -28,6 +28,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import de.dakror.gamesetup.GameFrame;
+import de.dakror.gamesetup.applet.GameApplet;
 
 /**
  * @author Dakror
@@ -190,7 +191,7 @@ public class Helper
 	{
 		Dimension s = getRelativeScaled(new Dimension(width, height), new Dimension(scaleW, scaleH), new Dimension(nowW, nowH));
 		
-		g.drawImage(img, (GameFrame.getWidth() - s.width) / 2, y, s.width, s.height, GameFrame.w);
+		g.drawImage(img, (getWidth() - s.width) / 2, y, s.width, s.height, GameFrame.w);
 	}
 	
 	public static void drawCooldownCircle(int x, int y, int size, float alpha, Color color, float percentage, Graphics2D g)
@@ -531,5 +532,15 @@ public class Helper
 				return df.format(size / Math.pow(1024, i)) + levels[i] + "B";
 			}
 		return null;
+	}
+	
+	public static int getWidth()
+	{
+		return GameApplet.currentApplet != null ? GameApplet.getWidth() : GameFrame.getWidth();
+	}
+	
+	public static int getHeight()
+	{
+		return GameApplet.currentApplet != null ? GameApplet.getHeight() : GameFrame.getHeight();
 	}
 }
