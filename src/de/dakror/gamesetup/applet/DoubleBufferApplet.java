@@ -16,8 +16,8 @@ public abstract class DoubleBufferApplet extends JApplet
 {
 	private static final long serialVersionUID = 1L;
 	
-	Graphics2D g;
-	Image offscreen;
+	protected Graphics2D g;
+	protected Image offscreen;
 	Dimension size;
 	
 	@Override
