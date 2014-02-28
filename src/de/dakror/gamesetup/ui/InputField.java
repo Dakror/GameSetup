@@ -103,7 +103,7 @@ public class InputField extends ClickableComponent
 		}
 		
 		String key = new String(new char[] { e.getKeyChar() });
-		if (allowed.contains(key) && text.length() < maxlength) text += key;
+		if ((allowed.contains(key) || allowed.length() == 0) && text.length() < maxlength) text += key;
 		
 		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE && text.length() > 0) text = text.substring(0, text.length() - 1);
 	}
