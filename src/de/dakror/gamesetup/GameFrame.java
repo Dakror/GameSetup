@@ -77,7 +77,7 @@ public abstract class GameFrame extends EventListener
 		w.getContentPane().setBackground(Color.black);
 		w.getContentPane().setIgnoreRepaint(true);
 		
-		w.setDefaultCloseOperation(System.getSecurityManager() == null ? JFrame.EXIT_ON_CLOSE : JFrame.DISPOSE_ON_CLOSE);
+		w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frames = 0;
 		start = 0;
@@ -312,7 +312,7 @@ public abstract class GameFrame extends EventListener
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
+		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		mouse = e.getPoint();
 		
 		for (Layer l : layers)
@@ -325,7 +325,7 @@ public abstract class GameFrame extends EventListener
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
+		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		
 		for (Layer l : layers)
 		{
@@ -337,7 +337,7 @@ public abstract class GameFrame extends EventListener
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
+		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		for (Layer l : layers)
 		{
 			l.mouseReleased(e);
@@ -348,7 +348,7 @@ public abstract class GameFrame extends EventListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
+		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		for (Layer l : layers)
 		{
 			l.mouseClicked(e);
@@ -359,7 +359,7 @@ public abstract class GameFrame extends EventListener
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
-		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
+		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		for (Layer l : layers)
 		{
 			l.mouseDragged(e);
@@ -370,7 +370,7 @@ public abstract class GameFrame extends EventListener
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
-		e.translatePoint(-w.getInsets().left, -w.getInsets().top);
+		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		for (Layer l : layers)
 		{
 			l.mouseWheelMoved(e);
