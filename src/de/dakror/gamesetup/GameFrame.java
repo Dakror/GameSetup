@@ -76,7 +76,8 @@ public abstract class GameFrame extends EventListener
 		w.setForeground(Color.white);
 		w.getContentPane().setBackground(Color.black);
 		w.getContentPane().setIgnoreRepaint(true);
-		w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		w.setDefaultCloseOperation(System.getSecurityManager() == null ? JFrame.EXIT_ON_CLOSE : JFrame.DISPOSE_ON_CLOSE);
 		
 		frames = 0;
 		start = 0;
