@@ -22,6 +22,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import de.dakror.gamesetup.applet.GameApplet;
 import de.dakror.gamesetup.layer.Layer;
 import de.dakror.gamesetup.util.EventListener;
 import de.dakror.gamesetup.util.Helper;
@@ -378,14 +379,24 @@ public abstract class GameFrame extends EventListener
 		}
 	}
 	
-	public static int getWidth()
+	public static int getFrameWidth()
 	{
 		return w.getWidth() - (w.getInsets().left + w.getInsets().right);
 	}
 	
-	public static int getHeight()
+	public static int getFrameHeight()
 	{
 		return w.getHeight() - (w.getInsets().top + w.getInsets().bottom);
+	}
+	
+	public static int getWidth()
+	{
+		return GameApplet.currentApplet != null ? GameApplet.getWidth() : getFrameWidth();
+	}
+	
+	public static int getHeight()
+	{
+		return GameApplet.currentApplet != null ? GameApplet.getHeight() : getFrameWidth();
 	}
 	
 	public static BufferedImage getImage(String p)
