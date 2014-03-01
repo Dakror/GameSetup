@@ -21,7 +21,7 @@ import de.dakror.gamesetup.util.Helper;
 public abstract class GameApplet extends GameFrame
 {
 	public static GameApplet currentApplet;
-	
+	public static JApplet applet;
 	static Dimension size;
 	
 	protected Canvas canvas;
@@ -36,20 +36,22 @@ public abstract class GameApplet extends GameFrame
 	public void init(String title)
 	{}
 	
-	public void init(JApplet applet)
+	public void init(JApplet a)
 	{
+		applet = a;
+		
 		size = applet.getSize();
 		canvas = new Canvas();
 		canvas.setSize(applet.getSize());
 		applet.add(canvas);
 		canvas.createBufferStrategy(2);
 		
-		applet.addKeyListener(this);
-		applet.addMouseListener(this);
-		applet.addMouseMotionListener(this);
-		applet.addMouseWheelListener(this);
-		applet.setBackground(Color.black);
-		applet.setForeground(Color.white);
+		canvas.addKeyListener(this);
+		canvas.addMouseListener(this);
+		canvas.addMouseMotionListener(this);
+		canvas.addMouseWheelListener(this);
+		canvas.setBackground(Color.black);
+		canvas.setForeground(Color.white);
 		
 		frames = 0;
 		start = 0;

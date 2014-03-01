@@ -48,7 +48,12 @@ public class InputField extends ClickableComponent
 		FontMetrics fm = g.getFontMetrics(g.getFont().deriveFont((float) size));
 		
 		String text = this.text;
-		if (text.length() == 0 && hint != null) text = hint;
+		boolean hint = false;
+		if (text.length() == 0 && this.hint != null)
+		{
+			text = this.hint;
+			hint = true;
+		}
 		
 		if (password) text = text.replaceAll(".{1}", "\\*");
 		int x = this.x;
@@ -58,7 +63,7 @@ public class InputField extends ClickableComponent
 		g.setClip(this.x + 15, y, width, height);
 		
 		Color o = g.getColor();
-		if (!enabled) g.setColor(Color.gray);
+		if (!enabled || hint) g.setColor(Color.gray);
 		
 		
 		Helper.drawString(text, x + 15, y + fm.getAscent() + h, g, size);
