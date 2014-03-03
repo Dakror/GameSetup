@@ -25,6 +25,7 @@ public class InputField extends ClickableComponent
 	int size;
 	int maxlength;
 	public static int h = 5;
+	public ClickEvent onEnter;
 	
 	BufferedImage bg;
 	
@@ -106,6 +107,11 @@ public class InputField extends ClickableComponent
 			{
 				e1.printStackTrace();
 			}
+			return;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_ENTER && onEnter != null)
+		{
+			onEnter.trigger();
 			return;
 		}
 		
@@ -205,5 +211,4 @@ public class InputField extends ClickableComponent
 	{
 		this.hint = hint;
 	}
-	
 }
