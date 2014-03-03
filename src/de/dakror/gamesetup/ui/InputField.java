@@ -21,6 +21,7 @@ public class InputField extends ClickableComponent
 	String allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 	boolean password;
 	boolean centered;
+	public boolean drawBG;
 	int size;
 	int maxlength;
 	public static int h = 5;
@@ -34,6 +35,7 @@ public class InputField extends ClickableComponent
 		maxlength = 20;
 		text = "";
 		
+		drawBG = true;
 		bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) bg.getGraphics();
 		Helper.drawShadow(0, 0, width, height, g);
@@ -43,7 +45,7 @@ public class InputField extends ClickableComponent
 	@Override
 	public void draw(Graphics2D g)
 	{
-		g.drawImage(bg, x, y, GameFrame.w);
+		if (drawBG) g.drawImage(bg, x, y, GameFrame.w);
 		
 		FontMetrics fm = g.getFontMetrics(g.getFont().deriveFont((float) size));
 		
