@@ -15,7 +15,7 @@ public class IconButton extends ClickableComponent
 	Image img;
 	Image bigger;
 	boolean biggerOnHover;
-	public boolean mode1, mode2, doubled, tooltipOnBottom;
+	public boolean mode1, mode2, doubled, tooltipOnBottom, shadow;
 	public String tooltip;
 	
 	public IconButton(int x, int y, int width, int height, String img)
@@ -32,6 +32,8 @@ public class IconButton extends ClickableComponent
 		mode2 = false;
 		doubled = false;
 		setBiggerOnHover(true);
+		
+		shadow = true;
 	}
 	
 	@Override
@@ -45,11 +47,13 @@ public class IconButton extends ClickableComponent
 		}
 		else if (mode2)
 		{
-			Helper.drawContainer(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, doubled, state == 1, g);
+			Helper.drawContainer(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, doubled, state == 1, shadow, g);
 		}
 		
 		if (state == 0 || !biggerOnHover) g.drawImage(img, x, y, width, height, null);
 		if (state > 0 && biggerOnHover) g.drawImage(bigger, x - 5, y - 5, width + 10, height + 10, null);
+		
+		if (!enabled) Helper.drawShadow(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, g);
 	}
 	
 	public void setBiggerOnHover(boolean bigger)
