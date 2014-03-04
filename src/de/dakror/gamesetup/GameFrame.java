@@ -316,6 +316,8 @@ public abstract class GameFrame extends EventListener
 		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		mouse = e.getPoint();
 		
+		if (layers == null) return;
+		
 		for (Layer l : layers)
 		{
 			l.mouseMoved(e);
