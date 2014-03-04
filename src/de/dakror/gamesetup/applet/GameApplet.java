@@ -22,7 +22,7 @@ public abstract class GameApplet extends GameFrame
 {
 	public static GameApplet currentApplet;
 	public static JApplet applet;
-	static Dimension size;
+	public static Dimension size;
 	
 	protected Canvas canvas;
 	
