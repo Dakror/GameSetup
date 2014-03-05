@@ -13,7 +13,6 @@ import de.dakror.gamesetup.util.Helper;
 public class IconButton extends ClickableComponent
 {
 	Image img;
-	Image bigger;
 	boolean biggerOnHover;
 	public boolean mode1, mode2, doubled, tooltipOnBottom, shadow;
 	public String tooltip;
@@ -27,7 +26,7 @@ public class IconButton extends ClickableComponent
 	{
 		super(x, y, width, height);
 		
-		this.img = img.getScaledInstance(width, height, Image.SCALE_REPLICATE);
+		this.img = img.getScaledInstance(width + 10, height + 20, Image.SCALE_SMOOTH);
 		mode1 = false;
 		mode2 = false;
 		doubled = false;
@@ -50,18 +49,14 @@ public class IconButton extends ClickableComponent
 			Helper.drawContainer(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, doubled, state == 1, shadow, g);
 		}
 		
-		if (state == 0 || !biggerOnHover) g.drawImage(img, x, y, width, height, null);
-		if (state > 0 && biggerOnHover) g.drawImage(bigger, x - 5, y - 5, width + 10, height + 10, null);
+		g.drawImage(img, x - (state > 0 && biggerOnHover ? 5 : 0), y - (state > 0 && biggerOnHover ? 5 : 0), width + (state > 0 && biggerOnHover ? 10 : 0), height + (state > 0 && biggerOnHover ? 10 : 0), null);
 		
-		if (!enabled) Helper.drawShadow(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, g);
+		if (!enabled) Helper.drawShadow(x - (state > 0 && biggerOnHover ? 5 : 0) - (mode1 ? 10 : 20), y - (state > 0 && biggerOnHover ? 5 : 0) - (mode1 ? 10 : 20), width + (state > 0 && biggerOnHover ? 10 : 0) + (mode1 ? 20 : 40), height + (state > 0 && biggerOnHover ? 10 : 0) + (mode1 ? 20 : 40), g);
 	}
 	
 	public void setBiggerOnHover(boolean bigger)
 	{
 		biggerOnHover = bigger;
-		if (bigger) this.bigger = img.getScaledInstance(width + 10, height + 10, Image.SCALE_REPLICATE);
-		
-		else this.bigger = null;
 	}
 	
 	@Override
