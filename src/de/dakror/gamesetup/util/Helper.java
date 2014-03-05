@@ -285,7 +285,7 @@ public class Helper
 		{
 			String word = words[i] + " ";
 			int w = g.getFontMetrics(g.getFont().deriveFont((float) size)).stringWidth(word);
-			if (w + lW > maxWidth)
+			if (w + lW > maxWidth || word.startsWith("\n"))
 			{
 				lW = 0;
 				lines.add(line);
@@ -317,7 +317,7 @@ public class Helper
 		{
 			String word = words[i] + " ";
 			int w = g.getFontMetrics(g.getFont().deriveFont((float) size)).stringWidth(word);
-			if (w + lW > maxWidth)
+			if (w + lW > maxWidth || word.startsWith("\n"))
 			{
 				lW = 0;
 				lines.add(line);
@@ -348,7 +348,7 @@ public class Helper
 		{
 			String word = words[i] + " ";
 			int w = g.getFontMetrics(g.getFont().deriveFont((float) size)).stringWidth(word);
-			if (w + lW > maxWidth)
+			if (w + lW > maxWidth || word.startsWith("\n"))
 			{
 				lW = 0;
 				rows++;
