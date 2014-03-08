@@ -14,7 +14,7 @@ public class IconButton extends ClickableComponent
 {
 	Image img;
 	boolean biggerOnHover;
-	public boolean mode1, mode2, doubled, tooltipOnBottom, shadow;
+	public boolean mode1, mode2, doubled, shadow;
 	public String tooltip;
 	
 	public IconButton(int x, int y, int width, int height, String img)
@@ -42,7 +42,7 @@ public class IconButton extends ClickableComponent
 		{
 			Helper.drawShadow(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, g);
 			if (state != 1) Helper.drawOutline(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, state == 1, g);
-			else Helper.drawContainer(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, false, false, g);
+			else Helper.drawContainer(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, false, false, shadow, g);
 		}
 		else if (mode2)
 		{
@@ -68,8 +68,16 @@ public class IconButton extends ClickableComponent
 	{
 		if (tooltip != null)
 		{
-			Helper.drawShadow(x, y - (tooltipOnBottom ? 54 : 0), g.getFontMetrics(g.getFont().deriveFont(30f)).stringWidth(tooltip) + 30, 64, g);
-			Helper.drawString(tooltip, x + 15, y + 40 - (tooltipOnBottom ? 54 : 0), g, 30);
+			int width = g.getFontMetrics(g.getFont().deriveFont(30f)).stringWidth(tooltip) + 30;
+			int height = 64;
+			int x1 = x;
+			int y1 = y;
+			
+			if (x1 + width > GameFrame.getWidth()) x1 -= (x1 + width) - GameFrame.getWidth();
+			if (y1 + height > GameFrame.getHeight()) y1 -= (y1 + height) - GameFrame.getHeight();
+			
+			Helper.drawShadow(x1, y1, g.getFontMetrics(g.getFont().deriveFont(30f)).stringWidth(tooltip) + 30, height, g);
+			Helper.drawString(tooltip, x1 + 15, y1 + 40, g, 30);
 		}
 	}
 }
