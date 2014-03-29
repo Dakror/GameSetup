@@ -9,10 +9,10 @@ import javax.swing.JTextField;
 
 public class JHintTextField extends JTextField
 {
-	
 	private static final long serialVersionUID = 1L;
-	String hint;
 	
+	String hint;
+	public Color foreGround = Color.black;
 	
 	public JHintTextField(String h)
 	{
@@ -40,7 +40,7 @@ public class JHintTextField extends JTextField
 		});
 	}
 	
-	private void setHintVisible(boolean v)
+	public void setHintVisible(boolean v)
 	{
 		if (v)
 		{
@@ -51,7 +51,7 @@ public class JHintTextField extends JTextField
 		else
 		{
 			setFont(getFont().deriveFont(Font.PLAIN));
-			setForeground(Color.black);
+			setForeground(foreGround);
 		}
 	}
 }
