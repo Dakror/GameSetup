@@ -482,6 +482,11 @@ public class Helper
 	
 	// -- math helper methods -- //
 	
+	public static float clamp(float x, float i, float j)
+	{
+		return Math.max(i, Math.min(x, j));
+	}
+	
 	public static Dimension scaleTo(Dimension input, Dimension wanted)
 	{
 		float rw = 0;
