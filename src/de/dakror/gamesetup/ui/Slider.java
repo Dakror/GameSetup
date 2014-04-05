@@ -75,7 +75,7 @@ public class Slider extends ClickableComponent
 		{
 			if (!horizontal)
 			{
-				float percent = Helper.clamp(e.getY() - 58, 0, height - 18) / (height - 18) * 100;
+				float percent = Helper.clamp(e.getY() - y - 8, 0, height - 18) / (height - 18) * 100;
 				
 				if (stepMode) percent = Helper.round(Math.round(percent), stepSize);
 				
@@ -84,7 +84,7 @@ public class Slider extends ClickableComponent
 			}
 			else
 			{
-				float percent = Helper.clamp(e.getX() - 58, 0, width - 18) / (width - 18) * 100;
+				float percent = Helper.clamp(e.getX() - x - 8, 0, width - 18) / (width - 18) * 100;
 				
 				if (stepMode) percent = Helper.round(Math.round(percent), stepSize);
 				
