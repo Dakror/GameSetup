@@ -71,7 +71,7 @@ public class Slider extends ClickableComponent
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
-		if (e.getModifiers() == 16) // LMB
+		if (e.getModifiers() == 16 && state != 0) // LMB
 		{
 			if (!horizontal)
 			{
