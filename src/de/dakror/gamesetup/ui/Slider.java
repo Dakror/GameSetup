@@ -71,7 +71,7 @@ public class Slider extends ClickableComponent
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
-		if (e.getModifiers() == 16 && state != 0) // LMB
+		if (e.getModifiers() == 16 && state != 0 && enabled) // LMB
 		{
 			if (!horizontal)
 			{
@@ -107,7 +107,7 @@ public class Slider extends ClickableComponent
 				Helper.drawImage2(img, x + 7 + i * 193, y, 193, height, 801, 72, 193, 20, g);
 			Helper.drawImage2(img, x + 7 + (width - 14) / 193 * 193, y, (width - 14) % 193, height, 801, 72, (width - 14) % 193, 20, g);
 			
-			Helper.drawImage2(img, (int) (x + sliderPos - 5), y - (38 - height) / 2, 20, 35, 889, 16, 25, 44, g);
+			if (enabled) Helper.drawImage2(img, (int) (x + sliderPos - 5), y - (38 - height) / 2, 20, 35, 889, 16, 25, 44, g);
 		}
 		else
 		{
@@ -122,7 +122,7 @@ public class Slider extends ClickableComponent
 				Helper.drawImage2(img, x + 7 + i * 193, y, 193, width, 801, 72, 193, 20, g);
 			Helper.drawImage2(img, x + 7 + (height - 14) / 193 * 193, y, (height - 14) % 193, width, 801, 72, (height - 14) % 193, 20, g);
 			
-			Helper.drawImage2(img, (int) (x + sliderPos - 5), y - (38 - width) / 2, 20, 35, 889, 16, 25, 44, g);
+			if (enabled) Helper.drawImage2(img, (int) (x + sliderPos - 5), y - (38 - width) / 2, 20, 35, 889, 16, 25, 44, g);
 			
 			g.setTransform(old);
 		}
