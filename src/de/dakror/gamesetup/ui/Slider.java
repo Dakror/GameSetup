@@ -54,7 +54,7 @@ public class Slider extends ClickableComponent
 		minValue = min;
 		maxValue = max;
 		value = startValue;
-		sliderPos = (value - min) / (max - min) * (size - 14);
+		sliderPos = (value - min) / (max - min) * (size - 18) + 4;
 		
 		customTitles = new HashMap<>();
 	}
@@ -153,5 +153,10 @@ public class Slider extends ClickableComponent
 	public void setTitle(String s)
 	{
 		title = s;
+	}
+	
+	public String getTitle()
+	{
+		return title;
 	}
 }
