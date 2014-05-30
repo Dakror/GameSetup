@@ -398,7 +398,7 @@ public abstract class GameFrame extends EventListener
 	
 	public static int getHeight()
 	{
-		return GameApplet.currentApplet != null ? GameApplet.getHeight() : getFrameWidth();
+		return GameApplet.currentApplet != null ? GameApplet.getHeight() : getFrameHeight();
 	}
 	
 	public static BufferedImage getImage(String p)
