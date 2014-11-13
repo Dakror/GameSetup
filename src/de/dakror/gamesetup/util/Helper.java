@@ -22,7 +22,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.InetAddress;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -459,12 +458,14 @@ public class Helper
 	{
 		try
 		{
-			return InetAddress.getByName("dakror.de").isReachable(60000);
+			new URL("http://dakror.de").openConnection();
 		}
 		catch (Exception e)
 		{
 			return false;
 		}
+		
+		return true;
 	}
 	
 	public static void copyInputStream(InputStream in, OutputStream out) throws IOException
