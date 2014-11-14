@@ -12,8 +12,7 @@ import javax.swing.SwingUtilities;
 /**
  * FlowLayout subclass that fully supports wrapping of components.
  */
-public class WrapLayout extends FlowLayout
-{
+public class WrapLayout extends FlowLayout {
 	private static final long serialVersionUID = 1L;
 	@SuppressWarnings("unused")
 	private Dimension preferredLayoutSize;
@@ -22,8 +21,7 @@ public class WrapLayout extends FlowLayout
 	 * Constructs a new <code>WrapLayout</code> with a left
 	 * alignment and a default 5-unit horizontal and vertical gap.
 	 */
-	public WrapLayout()
-	{
+	public WrapLayout() {
 		super();
 	}
 	
@@ -35,8 +33,7 @@ public class WrapLayout extends FlowLayout
 	 * 
 	 * @param align the alignment value
 	 */
-	public WrapLayout(int align)
-	{
+	public WrapLayout(int align) {
 		super(align);
 	}
 	
@@ -50,8 +47,7 @@ public class WrapLayout extends FlowLayout
 	 * @param hgap the horizontal gap between components
 	 * @param vgap the vertical gap between components
 	 */
-	public WrapLayout(int align, int hgap, int vgap)
-	{
+	public WrapLayout(int align, int hgap, int vgap) {
 		super(align, hgap, vgap);
 	}
 	
@@ -64,8 +60,7 @@ public class WrapLayout extends FlowLayout
 	 *         subcomponents of the specified container
 	 */
 	@Override
-	public Dimension preferredLayoutSize(Container target)
-	{
+	public Dimension preferredLayoutSize(Container target) {
 		return layoutSize(target, true);
 	}
 	
@@ -78,8 +73,7 @@ public class WrapLayout extends FlowLayout
 	 *         subcomponents of the specified container
 	 */
 	@Override
-	public Dimension minimumLayoutSize(Container target)
-	{
+	public Dimension minimumLayoutSize(Container target) {
 		Dimension minimum = layoutSize(target, false);
 		minimum.width -= (getHgap() + 1);
 		return minimum;
@@ -93,10 +87,8 @@ public class WrapLayout extends FlowLayout
 	 * @param preferred should preferred size be calculated
 	 * @return the dimension to layout the target container
 	 */
-	private Dimension layoutSize(Container target, boolean preferred)
-	{
-		synchronized (target.getTreeLock())
-		{
+	private Dimension layoutSize(Container target, boolean preferred) {
+		synchronized (target.getTreeLock()) {
 			// Each row must fit with the width allocated to the containter.
 			// When the container width = 0, the preferred width of the container
 			// has not yet been calculated so lets ask for the maximum.
@@ -119,18 +111,15 @@ public class WrapLayout extends FlowLayout
 			
 			int nmembers = target.getComponentCount();
 			
-			for (int i = 0; i < nmembers; i++)
-			{
+			for (int i = 0; i < nmembers; i++) {
 				Component m = target.getComponent(i);
 				
-				if (m.isVisible())
-				{
+				if (m.isVisible()) {
 					Dimension d = preferred ? m.getPreferredSize() : m.getMinimumSize();
 					
 					// Can't add the component to current row. Start a new row.
 					
-					if (rowWidth + d.width > maxWidth)
-					{
+					if (rowWidth + d.width > maxWidth) {
 						addRow(dim, rowWidth, rowHeight);
 						rowWidth = 0;
 						rowHeight = 0;
@@ -138,8 +127,7 @@ public class WrapLayout extends FlowLayout
 					
 					// Add a horizontal gap for all components after the first
 					
-					if (rowWidth != 0)
-					{
+					if (rowWidth != 0) {
 						rowWidth += hgap;
 					}
 					
@@ -160,8 +148,7 @@ public class WrapLayout extends FlowLayout
 			
 			Container scrollPane = SwingUtilities.getAncestorOfClass(JScrollPane.class, target);
 			
-			if (scrollPane != null && target.isValid())
-			{
+			if (scrollPane != null && target.isValid()) {
 				dim.width -= (hgap + 1);
 			}
 			
@@ -176,12 +163,10 @@ public class WrapLayout extends FlowLayout
 	 * @param rowWidth the width of the row to add
 	 * @param rowHeight the height of the row to add
 	 */
-	private void addRow(Dimension dim, int rowWidth, int rowHeight)
-	{
+	private void addRow(Dimension dim, int rowWidth, int rowHeight) {
 		dim.width = Math.max(dim.width, rowWidth);
 		
-		if (dim.height > 0)
-		{
+		if (dim.height > 0) {
 			dim.height += getVgap();
 		}
 		

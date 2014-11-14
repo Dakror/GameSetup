@@ -14,19 +14,15 @@ import de.dakror.gamesetup.util.EventListener;
 /**
  * @author Dakror
  */
-public abstract class Container extends EventListener implements Drawable
-{
-	public static class DefaultContainer extends Container
-	{
+public abstract class Container extends EventListener implements Drawable {
+	public static class DefaultContainer extends Container {
 		@Override
-		public void draw(Graphics2D g)
-		{
+		public void draw(Graphics2D g) {
 			drawComponents(g);
 		}
 		
 		@Override
-		public void update(int tick)
-		{
+		public void update(int tick) {
 			updateComponents(tick);
 		}
 	}
@@ -36,26 +32,22 @@ public abstract class Container extends EventListener implements Drawable
 	
 	public int translateX, translateY;
 	
-	public Container()
-	{
+	public Container() {
 		components = new CopyOnWriteArrayList<>();
 		enabled = true;
 		translateX = translateY = 0;
 	}
 	
-	protected void drawComponents(Graphics2D g)
-	{
+	protected void drawComponents(Graphics2D g) {
 		Component hovered = null;
-		for (Component c : components)
-		{
+		for (Component c : components) {
 			c.draw(g);
 			if (c.state == 2) hovered = c;
 		}
 		if (hovered != null) hovered.drawTooltip(GameFrame.currentFrame.mouse.x, GameFrame.currentFrame.mouse.y, g);
 	}
 	
-	protected void updateComponents(int tick)
-	{
+	protected void updateComponents(int tick) {
 		if (!enabled) return;
 		
 		for (Component c : components)
@@ -63,8 +55,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void mouseWheelMoved(MouseWheelEvent e)
-	{
+	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (!enabled) return;
 		
 		for (Component c : components)
@@ -72,8 +63,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent e)
-	{
+	public void mouseDragged(MouseEvent e) {
 		if (!enabled) return;
 		
 		e.translatePoint(translateX, translateY);
@@ -85,8 +75,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void mouseMoved(MouseEvent e)
-	{
+	public void mouseMoved(MouseEvent e) {
 		if (!enabled) return;
 		
 		e.translatePoint(translateX, translateY);
@@ -98,8 +87,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent e)
-	{
+	public void mouseClicked(MouseEvent e) {
 		if (!enabled) return;
 		
 		e.translatePoint(translateX, translateY);
@@ -111,8 +99,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		if (!enabled) return;
 		
 		e.translatePoint(translateX, translateY);
@@ -124,8 +111,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void mouseReleased(MouseEvent e)
-	{
+	public void mouseReleased(MouseEvent e) {
 		if (!enabled) return;
 		
 		e.translatePoint(translateX, translateY);
@@ -137,8 +123,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void mouseEntered(MouseEvent e)
-	{
+	public void mouseEntered(MouseEvent e) {
 		if (!enabled) return;
 		
 		e.translatePoint(translateX, translateY);
@@ -150,8 +135,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void mouseExited(MouseEvent e)
-	{
+	public void mouseExited(MouseEvent e) {
 		if (!enabled) return;
 		
 		e.translatePoint(translateX, translateY);
@@ -163,8 +147,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 		if (!enabled) return;
 		
 		for (Component c : components)
@@ -172,8 +155,7 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e) {
 		if (!enabled) return;
 		
 		for (Component c : components)
@@ -181,21 +163,18 @@ public abstract class Container extends EventListener implements Drawable
 	}
 	
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 		if (!enabled) return;
 		
 		for (Component c : components)
 			c.keyReleased(e);
 	}
 	
-	public boolean isEnabled()
-	{
+	public boolean isEnabled() {
 		return enabled;
 	}
 	
-	public void setEnabled(boolean enabled)
-	{
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 }

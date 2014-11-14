@@ -31,11 +31,9 @@ import de.dakror.gamesetup.GameFrame;
 /**
  * @author Dakror
  */
-public class Helper
-{
+public class Helper {
 	// -- draw helper methods -- //
-	public static int[] drawHorizontallyCenteredString(String s, int w, int h, Graphics2D g, int size)
-	{
+	public static int[] drawHorizontallyCenteredString(String s, int w, int h, Graphics2D g, int size) {
 		FontMetrics fm = g.getFontMetrics(g.getFont().deriveFont((float) size));
 		int x = (w - fm.stringWidth(s)) / 2;
 		
@@ -44,8 +42,7 @@ public class Helper
 		return new int[] { x, fm.stringWidth(s) };
 	}
 	
-	public static int[] drawHorizontallyCenteredString(String s, int x1, int w, int h, Graphics2D g, int size)
-	{
+	public static int[] drawHorizontallyCenteredString(String s, int x1, int w, int h, Graphics2D g, int size) {
 		FontMetrics fm = g.getFontMetrics(g.getFont().deriveFont((float) size));
 		int x = x1 + (w - fm.stringWidth(s)) / 2;
 		drawString(s, x, h, g, size);
@@ -53,8 +50,7 @@ public class Helper
 		return new int[] { x, fm.stringWidth(s) };
 	}
 	
-	public static int[] drawRightAlignedString(String s, int x1, int y, Graphics2D g, int size)
-	{
+	public static int[] drawRightAlignedString(String s, int x1, int y, Graphics2D g, int size) {
 		FontMetrics fm = g.getFontMetrics(g.getFont().deriveFont((float) size));
 		int x = x1 - fm.stringWidth(s);
 		drawString(s, x, y, g, size);
@@ -62,8 +58,7 @@ public class Helper
 		return new int[] { x, fm.stringWidth(s) };
 	}
 	
-	public static void drawString(String s, int x, int y, Graphics2D g, int size)
-	{
+	public static void drawString(String s, int x, int y, Graphics2D g, int size) {
 		Font old = g.getFont();
 		g.setFont(old.deriveFont((float) size));
 		g.drawString(s, x, y);
@@ -71,8 +66,7 @@ public class Helper
 		g.setFont(old);
 	}
 	
-	public static void drawOutline(int x, int y, int width, int height, boolean doubled, Graphics2D g)
-	{
+	public static void drawOutline(int x, int y, int width, int height, boolean doubled, Graphics2D g) {
 		BufferedImage gui = GameFrame.getImage("gui/gui.png");
 		
 		int cornerSize = (doubled) ? 24 : 19;
@@ -110,23 +104,19 @@ public class Helper
 		
 	}
 	
-	public static void drawContainer(int x, int y, int width, int height, boolean doubled, boolean wood, Graphics2D g)
-	{
+	public static void drawContainer(int x, int y, int width, int height, boolean doubled, boolean wood, Graphics2D g) {
 		drawContainer(x, y, width, height, doubled, wood, true, g);
 	}
 	
-	public static void drawContainer(int x, int y, int width, int height, boolean doubled, boolean wood, boolean shadow, Graphics2D g)
-	{
+	public static void drawContainer(int x, int y, int width, int height, boolean doubled, boolean wood, boolean shadow, Graphics2D g) {
 		if (shadow) drawShadow(x - 10, y - 10, width + 20, height + 20, g);
 		Image image = GameFrame.getImage(wood ? "gui/wood.png" : "gui/paper.png");
 		
 		Shape oldClip = g.getClip();
 		g.setClip(x, y, width, height);
 		
-		for (int i = x; i < x + width; i += 512)
-		{
-			for (int j = y; j < y + height; j += 512)
-			{
+		for (int i = x; i < x + width; i += 512) {
+			for (int j = y; j < y + height; j += 512) {
 				g.drawImage(image, i, j, GameFrame.w);
 			}
 		}
@@ -135,18 +125,14 @@ public class Helper
 		drawOutline(x, y, width, height, doubled, g);
 	}
 	
-	public static void drawShadow(int x, int y, int width, int height, Graphics2D g)
-	{
+	public static void drawShadow(int x, int y, int width, int height, Graphics2D g) {
 		BufferedImage shadow = GameFrame.getImage("gui/shadow.png");
 		
 		int size = 32;
-		if (width == height && width < 64)
-		{
+		if (width == height && width < 64) {
 			g.drawImage(shadow, x, y, width, height, GameFrame.w);
 			return;
-		}
-		else if (height < 64)
-		{
+		} else if (height < 64) {
 			shadow = toBufferedImage(shadow.getScaledInstance(height * 3 / 2, height * 3 / 2, Image.SCALE_FAST));
 			size = height / 2;
 		}
@@ -175,25 +161,21 @@ public class Helper
 		drawImage(shadow, x + size, y + size, width - size * 2, height - size * 2, size, size, size, size, g); // m
 	}
 	
-	public static void drawImage(Image img, int x, int y, int width, int height, int sx, int sy, int swidth, int sheight, Graphics2D g)
-	{
+	public static void drawImage(Image img, int x, int y, int width, int height, int sx, int sy, int swidth, int sheight, Graphics2D g) {
 		g.drawImage(img, x, y, x + width, y + height, sx, sy, sx + swidth, sy + sheight, GameFrame.w);
 	}
 	
-	public static void drawImage2(Image img, int x, int y, int width, int height, int sx, int sy, int swidth, int sheight, Graphics2D g)
-	{
+	public static void drawImage2(Image img, int x, int y, int width, int height, int sx, int sy, int swidth, int sheight, Graphics2D g) {
 		g.drawImage(img, x, y, x + width, y + height, sx, sy, sx + swidth, sy + sheight, null);
 	}
 	
-	public static void drawImageCenteredRelativeScaled(Image img, int y, int width, int height, int scaleW, int scaleH, int nowW, int nowH, Graphics2D g)
-	{
+	public static void drawImageCenteredRelativeScaled(Image img, int y, int width, int height, int scaleW, int scaleH, int nowW, int nowH, Graphics2D g) {
 		Dimension s = getRelativeScaled(new Dimension(width, height), new Dimension(scaleW, scaleH), new Dimension(nowW, nowH));
 		
 		g.drawImage(img, (GameFrame.getWidth() - s.width) / 2, y, s.width, s.height, GameFrame.w);
 	}
 	
-	public static void drawCooldownCircle(int x, int y, int size, float alpha, Color color, float percentage, Graphics2D g)
-	{
+	public static void drawCooldownCircle(int x, int y, int size, float alpha, Color color, float percentage, Graphics2D g) {
 		Arc2D arc = new Arc2D.Float(x, y, size, size, 90, percentage * 360, Arc2D.PIE);
 		Composite oc = g.getComposite();
 		Color o = g.getColor();
@@ -213,8 +195,7 @@ public class Helper
 		g.setClip(c);
 	}
 	
-	public static Dimension getRelativeScaled(Dimension src, Dimension scale, Dimension target)
-	{
+	public static Dimension getRelativeScaled(Dimension src, Dimension scale, Dimension target) {
 		int w = (src.width * target.width) / scale.width;
 		int h = (src.height * target.height) / scale.height;
 		
@@ -224,13 +205,10 @@ public class Helper
 		int width1 = 0;
 		int height1 = 0;
 		
-		if (sourceRatio >= targetRatio)
-		{
+		if (sourceRatio >= targetRatio) {
 			width1 = w;
 			height1 = Math.round(w / sourceRatio);
-		}
-		else
-		{
+		} else {
 			height1 = h;
 			width1 = Math.round(h * sourceRatio);
 		}
@@ -238,13 +216,11 @@ public class Helper
 		return new Dimension(width1, height1);
 	}
 	
-	public static void drawImageCenteredRelativeScaled(Image img, int y, int scaleW, int scaleH, int nowW, int nowH, Graphics2D g)
-	{
+	public static void drawImageCenteredRelativeScaled(Image img, int y, int scaleW, int scaleH, int nowW, int nowH, Graphics2D g) {
 		drawImageCenteredRelativeScaled(img, y, img.getWidth(null), img.getHeight(null), scaleW, scaleH, nowW, nowH, g);
 	}
 	
-	public static BufferedImage toBufferedImage(Image img)
-	{
+	public static BufferedImage toBufferedImage(Image img) {
 		BufferedImage image = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 		image.getGraphics().drawImage(img, 0, 0, null);
 		
@@ -254,8 +230,7 @@ public class Helper
 	/**
 	 * @param percent 0 - 1
 	 */
-	public static void drawProgressBar(int x, int y, int width, float percent, String color, Graphics2D g)
-	{
+	public static void drawProgressBar(int x, int y, int width, float percent, String color, Graphics2D g) {
 		Image filling = GameFrame.getImage("gui/bar/Bar-" + color + ".png");
 		Image base = GameFrame.getImage("gui/bar/BarBase.png");
 		
@@ -273,19 +248,16 @@ public class Helper
 			drawImage(filling, i, y, 1, 23, 6, 0, 1, 23, g);
 	}
 	
-	public static int drawStringWrapped(String raw, int x, int y, int maxWidth, Graphics2D g, int size)
-	{
+	public static int drawStringWrapped(String raw, int x, int y, int maxWidth, Graphics2D g, int size) {
 		String[] words = raw.split(" ");
 		ArrayList<String> lines = new ArrayList<>();
 		int lW = 0;
 		
 		String line = "";
-		for (int i = 0; i < words.length; i++)
-		{
+		for (int i = 0; i < words.length; i++) {
 			String word = words[i] + " ";
 			int w = g.getFontMetrics(g.getFont().deriveFont((float) size)).stringWidth(word);
-			if (w + lW > maxWidth || word.startsWith("\n"))
-			{
+			if (w + lW > maxWidth || word.startsWith("\n")) {
 				lW = 0;
 				lines.add(line);
 				line = "";
@@ -297,27 +269,23 @@ public class Helper
 		
 		lines.add(line);
 		
-		for (int i = 0; i < lines.size(); i++)
-		{
+		for (int i = 0; i < lines.size(); i++) {
 			drawString(lines.get(i), x, y + size * i, g, size);
 		}
 		
 		return lines.size();
 	}
 	
-	public static void drawHorizontallyCenteredStringWrapped(String raw, int x, int width, int y, int maxWidth, Graphics2D g, int size)
-	{
+	public static void drawHorizontallyCenteredStringWrapped(String raw, int x, int width, int y, int maxWidth, Graphics2D g, int size) {
 		String[] words = raw.split(" ");
 		ArrayList<String> lines = new ArrayList<>();
 		int lW = 0;
 		
 		String line = "";
-		for (int i = 0; i < words.length; i++)
-		{
+		for (int i = 0; i < words.length; i++) {
 			String word = words[i] + " ";
 			int w = g.getFontMetrics(g.getFont().deriveFont((float) size)).stringWidth(word);
-			if (w + lW > maxWidth || word.startsWith("\n"))
-			{
+			if (w + lW > maxWidth || word.startsWith("\n")) {
 				lW = 0;
 				lines.add(line);
 				line = "";
@@ -329,26 +297,22 @@ public class Helper
 		
 		lines.add(line);
 		
-		for (int i = 0; i < lines.size(); i++)
-		{
+		for (int i = 0; i < lines.size(); i++) {
 			drawHorizontallyCenteredString(lines.get(i), x, width, y + size * i, g, size);
 		}
 	}
 	
-	public static int getLineCount(String raw, int maxWidth, Graphics2D g, int size)
-	{
+	public static int getLineCount(String raw, int maxWidth, Graphics2D g, int size) {
 		String[] words = raw.split(" ");
 		
 		int lW = 0;
 		
 		int rows = 1;
 		
-		for (int i = 0; i < words.length; i++)
-		{
+		for (int i = 0; i < words.length; i++) {
 			String word = words[i] + " ";
 			int w = g.getFontMetrics(g.getFont().deriveFont((float) size)).stringWidth(word);
-			if (w + lW > maxWidth || word.startsWith("\n"))
-			{
+			if (w + lW > maxWidth || word.startsWith("\n")) {
 				lW = 0;
 				rows++;
 			}
@@ -358,17 +322,13 @@ public class Helper
 		return rows;
 	}
 	
-	public static void setRenderingHints(Graphics2D g, boolean on)
-	{
-		if (on)
-		{
+	public static void setRenderingHints(Graphics2D g, boolean on) {
+		if (on) {
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		}
-		else
-		{
+		} else {
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 			g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
@@ -377,103 +337,77 @@ public class Helper
 	}
 	
 	// -- file helper methods -- //
-	public static void setFileContent(File f, String s)
-	{
+	public static void setFileContent(File f, String s) {
 		f.getParentFile().mkdirs();
-		try
-		{
+		try {
 			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(f));
 			osw.write(s);
 			osw.close();
-		}
-		catch (Exception e)
-		{}
+		} catch (Exception e) {}
 	}
 	
-	public static void setFileContent(File f, String s, String charset)
-	{
+	public static void setFileContent(File f, String s, String charset) {
 		f.getParentFile().mkdirs();
-		try
-		{
+		try {
 			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(f), charset);
 			osw.write(s);
 			osw.close();
-		}
-		catch (Exception e)
-		{}
+		} catch (Exception e) {}
 	}
 	
-	public static String getFileContent(File f)
-	{
+	public static String getFileContent(File f) {
 		String res = "", line = "";
-		try
-		{
+		try {
 			BufferedReader br = new BufferedReader(new FileReader(f));
 			while ((line = br.readLine()) != null)
 				res += line + "\r\n";
 			br.close();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			return null;
 		}
 		return res;
 	}
 	
-	public static String getURLContent(URL u)
-	{
+	public static String getURLContent(URL u) {
 		String res = "", line = "";
-		try
-		{
+		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(u.openStream()));
 			while ((line = br.readLine()) != null)
 				res += line + "\r\n";
 			br.close();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			return null;
 		}
 		return res;
 	}
 	
-	public static String getURLContent(URL u, String charset)
-	{
+	public static String getURLContent(URL u, String charset) {
 		String res = "", line = "";
-		try
-		{
+		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(u.openStream(), charset));
 			while ((line = br.readLine()) != null)
 				res += line + "\r\n";
 			br.close();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			return null;
 		}
 		return res;
 	}
 	
-	public static boolean isInternetReachable()
-	{
-		try
-		{
+	public static boolean isInternetReachable() {
+		try {
 			new URL("http://dakror.de").openConnection();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return false;
 		}
 		
 		return true;
 	}
 	
-	public static void copyInputStream(InputStream in, OutputStream out) throws IOException
-	{
+	public static void copyInputStream(InputStream in, OutputStream out) throws IOException {
 		byte[] buffer = new byte[1024];
 		int len = in.read(buffer);
-		while (len >= 0)
-		{
+		while (len >= 0) {
 			out.write(buffer, 0, len);
 			len = in.read(buffer);
 		}
@@ -483,24 +417,19 @@ public class Helper
 	
 	// -- math helper methods -- //
 	
-	public static float clamp(float x, float i, float j)
-	{
+	public static float clamp(float x, float i, float j) {
 		return Math.max(i, Math.min(x, j));
 	}
 	
-	public static Dimension scaleTo(Dimension input, Dimension wanted)
-	{
+	public static Dimension scaleTo(Dimension input, Dimension wanted) {
 		float rw = 0;
 		float rh = 0;
 		float tr = wanted.width / (float) wanted.height;
 		float sr = input.width / (float) input.height;
-		if (sr >= tr)
-		{
+		if (sr >= tr) {
 			rw = wanted.width;
 			rh = rw / sr;
-		}
-		else
-		{
+		} else {
 			rh = wanted.height;
 			rw = rh * sr;
 		}
@@ -508,29 +437,24 @@ public class Helper
 		return new Dimension(Math.round(rw), Math.round(rh));
 	}
 	
-	public static Rectangle round(Rectangle r, int gridSize)
-	{
+	public static Rectangle round(Rectangle r, int gridSize) {
 		return new Rectangle(round(r.x, gridSize), round(r.y, gridSize), round(r.width, gridSize), round(r.height, gridSize));
 	}
 	
-	public static int round(int i, int step)
-	{
+	public static int round(int i, int step) {
 		if (i % step > step / 2.0f) return i + (step - (i % step));
 		else return i - (i % step);
 	}
 	
-	public static int round2(int i, int step)
-	{
+	public static int round2(int i, int step) {
 		if (i % step >= step / 2.0f) return i + (step - (i % step));
 		else return i - (i % step);
 	}
 	
-	public static String formatBinarySize(long size, int digits)
-	{
+	public static String formatBinarySize(long size, int digits) {
 		final String[] levels = { "", "K", "M", "G", "T" };
 		for (int i = levels.length - 1; i > -1; i--)
-			if (size > (long) Math.pow(1024, i))
-			{
+			if (size > (long) Math.pow(1024, i)) {
 				DecimalFormat df = new DecimalFormat();
 				df.setMaximumFractionDigits(digits);
 				df.setMinimumFractionDigits(digits);

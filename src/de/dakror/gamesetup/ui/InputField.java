@@ -14,8 +14,7 @@ import java.awt.image.BufferedImage;
 import de.dakror.gamesetup.GameFrame;
 import de.dakror.gamesetup.util.Helper;
 
-public class InputField extends ClickableComponent
-{
+public class InputField extends ClickableComponent {
 	String text;
 	String hint;
 	String allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -29,8 +28,7 @@ public class InputField extends ClickableComponent
 	
 	BufferedImage bg;
 	
-	public InputField(int x, int y, int width, int size)
-	{
+	public InputField(int x, int y, int width, int size) {
 		super(x, y, width, size + 20);
 		this.size = size;
 		maxlength = 20;
@@ -44,16 +42,14 @@ public class InputField extends ClickableComponent
 	}
 	
 	@Override
-	public void draw(Graphics2D g)
-	{
+	public void draw(Graphics2D g) {
 		if (drawBG) g.drawImage(bg, x, y, GameFrame.w);
 		
 		FontMetrics fm = g.getFontMetrics(g.getFont().deriveFont((float) size));
 		
 		String text = this.text;
 		boolean hint = false;
-		if (text.length() == 0 && this.hint != null)
-		{
+		if (text.length() == 0 && this.hint != null) {
 			text = this.hint;
 			hint = true;
 		}
@@ -71,8 +67,7 @@ public class InputField extends ClickableComponent
 		
 		Helper.drawString(text, x + 15, y + fm.getAscent() + h, g, size);
 		g.setClip(c);
-		if (state == 1)
-		{
+		if (state == 1) {
 			g.setColor(Color.white);
 			g.fillRect(x + 15 + fm.stringWidth(text), y + 10, 5, height - 20);
 		}
@@ -81,36 +76,26 @@ public class InputField extends ClickableComponent
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e) {
 		if (state != 1 || !enabled) return;
 		
-		if (e.getKeyCode() == KeyEvent.VK_V && e.isControlDown() && !password)
-		{
-			try
-			{
+		if (e.getKeyCode() == KeyEvent.VK_V && e.isControlDown() && !password) {
+			try {
 				text += Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-			}
-			catch (Exception e1)
-			{
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 			return;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_C && e.isControlDown() && !password)
-		{
-			try
-			{
+		if (e.getKeyCode() == KeyEvent.VK_C && e.isControlDown() && !password) {
+			try {
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(text), null);
-			}
-			catch (Exception e1)
-			{
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 			return;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_ENTER && onEnter != null)
-		{
+		if (e.getKeyCode() == KeyEvent.VK_ENTER && onEnter != null) {
 			onEnter.trigger();
 			return;
 		}
@@ -122,93 +107,75 @@ public class InputField extends ClickableComponent
 	}
 	
 	@Override
-	public void update(int tick)
-	{
+	public void update(int tick) {
 		if (!enabled) state = 0;
 	}
 	
-	public String getText()
-	{
+	public String getText() {
 		return text;
 	}
 	
 	@Override
-	public void mouseReleased(MouseEvent e)
-	{}
+	public void mouseReleased(MouseEvent e) {}
 	
 	@Override
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		if (contains(e.getX(), e.getY()) && enabled) state = 1;
 		else state = 0;
 	}
 	
 	@Override
-	public void mouseMoved(MouseEvent e)
-	{}
+	public void mouseMoved(MouseEvent e) {}
 	
-	public void setText(String text)
-	{
+	public void setText(String text) {
 		this.text = text;
 	}
 	
-	public String getAllowed()
-	{
+	public String getAllowed() {
 		return allowed;
 	}
 	
-	public void setAllowed(String allowed)
-	{
+	public void setAllowed(String allowed) {
 		this.allowed = allowed;
 	}
 	
-	public boolean isPassword()
-	{
+	public boolean isPassword() {
 		return password;
 	}
 	
-	public void setPassword(boolean password)
-	{
+	public void setPassword(boolean password) {
 		this.password = password;
 	}
 	
-	public boolean isCentered()
-	{
+	public boolean isCentered() {
 		return centered;
 	}
 	
-	public void setCentered(boolean centered)
-	{
+	public void setCentered(boolean centered) {
 		this.centered = centered;
 	}
 	
-	public int getSize()
-	{
+	public int getSize() {
 		return size;
 	}
 	
-	public void setSize(int size)
-	{
+	public void setSize(int size) {
 		this.size = size;
 	}
 	
-	public int getMaxlength()
-	{
+	public int getMaxlength() {
 		return maxlength;
 	}
 	
-	public void setMaxlength(int maxlength)
-	{
+	public void setMaxlength(int maxlength) {
 		this.maxlength = maxlength;
 	}
 	
-	public String getHint()
-	{
+	public String getHint() {
 		return hint;
 	}
 	
-	public void setHint(String hint)
-	{
+	public void setHint(String hint) {
 		this.hint = hint;
 	}
 }

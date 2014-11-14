@@ -11,8 +11,7 @@ import de.dakror.gamesetup.util.Helper;
 /**
  * @author Dakror
  */
-public class TextButton extends ClickableComponent
-{
+public class TextButton extends ClickableComponent {
 	public static final int WIDTH = 288;
 	public static final int HEIGHT = 59;
 	
@@ -24,15 +23,12 @@ public class TextButton extends ClickableComponent
 	
 	String text;
 	
-	public TextButton(int x, int y, String text)
-	{
+	public TextButton(int x, int y, String text) {
 		super(x, y, WIDTH, HEIGHT);
 		this.text = text;
-		addClickEvent(new ClickEvent()
-		{
+		addClickEvent(new ClickEvent() {
 			@Override
-			public void trigger()
-			{
+			public void trigger() {
 				if (toggle) selected = !selected;
 			}
 		});
@@ -40,12 +36,10 @@ public class TextButton extends ClickableComponent
 	}
 	
 	@Override
-	public void draw(Graphics2D g)
-	{
+	public void draw(Graphics2D g) {
 		int ty = state == 0 ? 124 : (state == 1 ? 202 : 280);
 		
-		if (toggle)
-		{
+		if (toggle) {
 			ty = selected ? 202 : 124;
 		}
 		
@@ -64,33 +58,27 @@ public class TextButton extends ClickableComponent
 	}
 	
 	@Override
-	public void update(int tick)
-	{}
+	public void update(int tick) {}
 	
-	public boolean isSelected()
-	{
+	public boolean isSelected() {
 		if (!toggle) return false;
 		
 		return selected;
 	}
 	
-	public void setSelected(boolean b)
-	{
+	public void setSelected(boolean b) {
 		selected = b;
 	}
 	
-	public String getText()
-	{
+	public String getText() {
 		return text;
 	}
 	
-	public void setText(String text)
-	{
+	public void setText(String text) {
 		this.text = text;
 	}
 	
-	public void setToggleMode(boolean toggle)
-	{
+	public void setToggleMode(boolean toggle) {
 		this.toggle = toggle;
 	}
 }

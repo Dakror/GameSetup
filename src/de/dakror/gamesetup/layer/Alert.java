@@ -10,14 +10,12 @@ import de.dakror.gamesetup.util.Helper;
 /**
  * @author Dakror
  */
-public class Alert extends Layer
-{
+public class Alert extends Layer {
 	String text;
 	ClickEvent event;
 	int width, height;
 	
-	public Alert(String text, ClickEvent event)
-	{
+	public Alert(String text, ClickEvent event) {
 		this.text = text;
 		this.event = event;
 		modal = true;
@@ -26,13 +24,11 @@ public class Alert extends Layer
 	}
 	
 	@Override
-	public void draw(Graphics2D g)
-	{
+	public void draw(Graphics2D g) {
 		drawModality(g);
 		int x = (GameFrame.getWidth() - width) / 2;
 		int y = (GameFrame.getHeight() - height) / 2;
-		if (height == 0)
-		{
+		if (height == 0) {
 			height = 20 + Helper.getLineCount(text, width - 30, g, 30) * 30 + TextButton.HEIGHT + 50;
 			components.clear();
 			init();
@@ -44,21 +40,17 @@ public class Alert extends Layer
 	}
 	
 	@Override
-	public void update(int tick)
-	{
+	public void update(int tick) {
 		updateComponents(tick);
 	}
 	
 	@Override
-	public void init()
-	{
+	public void init() {
 		TextButton ok = new TextButton((GameFrame.getWidth() - TextButton.WIDTH) / 2, (GameFrame.getHeight() - height) / 2 + height - 15 - TextButton.HEIGHT, "Ok");
 		if (event != null) ok.addClickEvent(event);
-		ok.addClickEvent(new ClickEvent()
-		{
+		ok.addClickEvent(new ClickEvent() {
 			@Override
-			public void trigger()
-			{
+			public void trigger() {
 				GameFrame.currentFrame.removeLayer(Alert.this);
 			}
 		});

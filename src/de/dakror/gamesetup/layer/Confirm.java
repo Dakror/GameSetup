@@ -10,14 +10,12 @@ import de.dakror.gamesetup.util.Helper;
 /**
  * @author Dakror
  */
-public class Confirm extends Layer
-{
+public class Confirm extends Layer {
 	String text;
 	ClickEvent eventYes, eventNo;
 	int width, height;
 	
-	public Confirm(String text, ClickEvent eventYes, ClickEvent eventNo)
-	{
+	public Confirm(String text, ClickEvent eventYes, ClickEvent eventNo) {
 		this.text = text;
 		this.eventYes = eventYes;
 		this.eventNo = eventNo;
@@ -27,13 +25,11 @@ public class Confirm extends Layer
 	}
 	
 	@Override
-	public void draw(Graphics2D g)
-	{
+	public void draw(Graphics2D g) {
 		drawModality(g);
 		int x = (GameFrame.getWidth() - width) / 2;
 		int y = (GameFrame.getHeight() - height) / 2;
-		if (height == 0)
-		{
+		if (height == 0) {
 			height = 20 + Helper.getLineCount(text, width - 30, g, 30) * 30 + TextButton.HEIGHT + 50;
 			components.clear();
 			init();
@@ -45,21 +41,17 @@ public class Confirm extends Layer
 	}
 	
 	@Override
-	public void update(int tick)
-	{
+	public void update(int tick) {
 		updateComponents(tick);
 	}
 	
 	@Override
-	public void init()
-	{
+	public void init() {
 		TextButton cnc = new TextButton(GameFrame.getWidth() / 2 - TextButton.WIDTH, (GameFrame.getHeight() - height) / 2 + height - 15 - TextButton.HEIGHT, "Abbruch");
 		if (eventNo != null) cnc.addClickEvent(eventNo);
-		cnc.addClickEvent(new ClickEvent()
-		{
+		cnc.addClickEvent(new ClickEvent() {
 			@Override
-			public void trigger()
-			{
+			public void trigger() {
 				GameFrame.currentFrame.removeLayer(Confirm.this);
 			}
 		});
@@ -67,11 +59,9 @@ public class Confirm extends Layer
 		
 		TextButton ok = new TextButton(GameFrame.getWidth() / 2, (GameFrame.getHeight() - height) / 2 + height - 15 - TextButton.HEIGHT, "Ok");
 		if (eventYes != null) ok.addClickEvent(eventYes);
-		ok.addClickEvent(new ClickEvent()
-		{
+		ok.addClickEvent(new ClickEvent() {
 			@Override
-			public void trigger()
-			{
+			public void trigger() {
 				GameFrame.currentFrame.removeLayer(Confirm.this);
 			}
 		});

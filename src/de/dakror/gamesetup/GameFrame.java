@@ -30,8 +30,7 @@ import de.dakror.gamesetup.util.Helper;
 /**
  * @author Dakror
  */
-public abstract class GameFrame extends EventListener
-{
+public abstract class GameFrame extends EventListener {
 	public static File screenshotDir;
 	
 	public static JFrame w;
@@ -52,24 +51,20 @@ public abstract class GameFrame extends EventListener
 	
 	public CopyOnWriteArrayList<Layer> layers;
 	
-	public GameFrame()
-	{
+	public GameFrame() {
 		currentFrame = this;
 	}
 	
-	public void init(String title)
-	{
+	public void init(String title) {
 		w = new JFrame(title);
 		w.addKeyListener(this);
 		w.addMouseListener(this);
 		w.addMouseMotionListener(this);
 		w.addMouseWheelListener(this);
-		w.addWindowStateListener(new WindowStateListener()
-		{
+		w.addWindowStateListener(new WindowStateListener() {
 			
 			@Override
-			public void windowStateChanged(WindowEvent e)
-			{
+			public void windowStateChanged(WindowEvent e) {
 				w.setExtendedState(JFrame.NORMAL);
 			}
 		});
@@ -89,54 +84,43 @@ public abstract class GameFrame extends EventListener
 	
 	public abstract void initGame();
 	
-	public int getUPS()
-	{
+	public int getUPS() {
 		return Math.round(updater.ticks / ((System.currentTimeMillis() - start) / 1000f));
 	}
 	
-	public int getUPS2()
-	{
+	public int getUPS2() {
 		return Helper.round(Math.round(updater.ticks / ((System.currentTimeMillis() - start) / 1000f)), 30);
 	}
 	
-	public int getFPS()
-	{
+	public int getFPS() {
 		return framesSolid;
 	}
 	
-	public void addLayer(Layer l)
-	{
+	public void addLayer(Layer l) {
 		l.init();
 		layers.add(0, l);
 	}
 	
-	public void setLayer(Layer l)
-	{
-		for (Layer layer : layers)
-		{
+	public void setLayer(Layer l) {
+		for (Layer layer : layers) {
 			if (!layer.consistent) removeLayer(layer);
 		}
 		
 		addLayer(l);
 	}
 	
-	public void removeLayer(Layer l)
-	{
+	public void removeLayer(Layer l) {
 		layers.remove(l);
 	}
 	
-	public Layer getActiveLayer()
-	{
+	public Layer getActiveLayer() {
 		if (layers.size() == 0) return null;
 		return layers.get(0);
 	}
 	
-	public void toggleLayer(Layer l)
-	{
-		for (Layer layer : layers)
-		{
-			if (layer.getClass().equals(l.getClass()))
-			{
+	public void toggleLayer(Layer l) {
+		for (Layer layer : layers) {
+			if (layer.getClass().equals(l.getClass())) {
 				layers.remove(layer);
 				return;
 			}
@@ -147,19 +131,16 @@ public abstract class GameFrame extends EventListener
 		
 	}
 	
-	public void fadeTo(float target, float speed)
-	{
+	public void fadeTo(float target, float speed) {
 		fade = true;
 		fadeTo = target;
 		this.speed = speed;
 	}
 	
-	public void main()
-	{
+	public void main() {
 		if (start == 0) start = System.currentTimeMillis();
 		if (last == 0) last = System.currentTimeMillis();
-		if (System.currentTimeMillis() - last >= 1000)
-		{
+		if (System.currentTimeMillis() - last >= 1000) {
 			framesSolid = frames;
 			frames = 0;
 			last = System.currentTimeMillis();
@@ -170,13 +151,10 @@ public abstract class GameFrame extends EventListener
 		BufferStrategy s = null;
 		Graphics2D g = null;
 		
-		try
-		{
+		try {
 			s = w.getBufferStrategy();
 			g = (Graphics2D) s.getDrawGraphics();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return;
 		}
 		
@@ -185,8 +163,7 @@ public abstract class GameFrame extends EventListener
 		g.clearRect(0, 0, getWidth(), getHeight());
 		
 		BufferedImage screenshot = null;
-		if (this.screenshot)
-		{
+		if (this.screenshot) {
 			screenshot = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 			g = (Graphics2D) screenshot.getGraphics();
 			g.setFont(w.getFont());
@@ -196,8 +173,7 @@ public abstract class GameFrame extends EventListener
 		
 		draw(g);
 		
-		if (alpha > 0)
-		{
+		if (alpha > 0) {
 			Composite c1 = g.getComposite();
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 			
@@ -207,50 +183,38 @@ public abstract class GameFrame extends EventListener
 			g.setComposite(c1);
 		}
 		
-		if (screenshot != null)
-		{
-			try
-			{
+		if (screenshot != null) {
+			try {
 				screenshotDir.mkdirs();
 				File file = new File(screenshotDir, "screenshot " + new Date().toString().replace(":", "-") + ".png");
 				ImageIO.write(screenshot, "png", file);
 				this.screenshot = false;
-			}
-			catch (IOException e)
-			{
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		
 		g.dispose();
 		
-		try
-		{
+		try {
 			if (!s.contentsLost()) s.show();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return;
 		}
 		
 		frames++;
 	}
 	
-	public void drawLayers(Graphics2D g)
-	{
-		try
-		{
+	public void drawLayers(Graphics2D g) {
+		try {
 			for (int i = layers.size() - 1; i >= 0; i--)
 				layers.get(i).draw(g);
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 	}
 	
 	public abstract void draw(Graphics2D g);
 	
-	public void setFullscreen()
-	{
+	public void setFullscreen() {
 		w.dispose();
 		if (w.getWidth() == 0) w.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
 		
@@ -260,8 +224,7 @@ public abstract class GameFrame extends EventListener
 		w.createBufferStrategy(2);
 	}
 	
-	public void setWindowed(int width, int height)
-	{
+	public void setWindowed(int width, int height) {
 		w.dispose();
 		w.setSize(width, height);
 		w.setMinimumSize(new Dimension(width, height));
@@ -270,8 +233,7 @@ public abstract class GameFrame extends EventListener
 		w.createBufferStrategy(2);
 	}
 	
-	public void setWindowed()
-	{
+	public void setWindowed() {
 		w.dispose();
 		w.setUndecorated(false);
 		w.setVisible(true);
@@ -279,20 +241,16 @@ public abstract class GameFrame extends EventListener
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		for (Layer l : layers)
-		{
+	public void keyPressed(KeyEvent e) {
+		for (Layer l : layers) {
 			l.keyPressed(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
 	}
 	
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		for (Layer l : layers)
-		{
+	public void keyReleased(KeyEvent e) {
+		for (Layer l : layers) {
 			l.keyReleased(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
@@ -301,124 +259,101 @@ public abstract class GameFrame extends EventListener
 	}
 	
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
-		for (Layer l : layers)
-		{
+	public void keyTyped(KeyEvent e) {
+		for (Layer l : layers) {
 			l.keyTyped(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
 	}
 	
 	@Override
-	public void mouseMoved(MouseEvent e)
-	{
+	public void mouseMoved(MouseEvent e) {
 		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		mouse = e.getPoint();
 		
 		if (layers == null) return;
 		
-		for (Layer l : layers)
-		{
+		for (Layer l : layers) {
 			l.mouseMoved(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
 	}
 	
 	@Override
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
 		
-		for (Layer l : layers)
-		{
+		for (Layer l : layers) {
 			l.mousePressed(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
 	}
 	
 	@Override
-	public void mouseReleased(MouseEvent e)
-	{
+	public void mouseReleased(MouseEvent e) {
 		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
-		for (Layer l : layers)
-		{
+		for (Layer l : layers) {
 			l.mouseReleased(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent e)
-	{
+	public void mouseClicked(MouseEvent e) {
 		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
-		for (Layer l : layers)
-		{
+		for (Layer l : layers) {
 			l.mouseClicked(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent e)
-	{
+	public void mouseDragged(MouseEvent e) {
 		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
-		for (Layer l : layers)
-		{
+		for (Layer l : layers) {
 			l.mouseDragged(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
 	}
 	
 	@Override
-	public void mouseWheelMoved(MouseWheelEvent e)
-	{
+	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (w != null) e.translatePoint(-w.getInsets().left, -w.getInsets().top);
-		for (Layer l : layers)
-		{
+		for (Layer l : layers) {
 			l.mouseWheelMoved(e);
 			if (l.isModal() && l.isEnabled()) break;
 		}
 	}
 	
-	public static int getFrameWidth()
-	{
+	public static int getFrameWidth() {
 		return w.getWidth() - (w.getInsets().left + w.getInsets().right);
 	}
 	
-	public static int getFrameHeight()
-	{
+	public static int getFrameHeight() {
 		return w.getHeight() - (w.getInsets().top + w.getInsets().bottom);
 	}
 	
-	public static int getWidth()
-	{
+	public static int getWidth() {
 		return GameApplet.currentApplet != null ? GameApplet.getWidth() : getFrameWidth();
 	}
 	
-	public static int getHeight()
-	{
+	public static int getHeight() {
 		return GameApplet.currentApplet != null ? GameApplet.getHeight() : getFrameHeight();
 	}
 	
-	public static BufferedImage getImage(String p)
-	{
+	public static BufferedImage getImage(String p) {
 		if (imageCache.containsKey(p)) return imageCache.get(p);
 		BufferedImage img = currentFrame.loadImage(p);
 		imageCache.put(p, img);
 		return img;
 	}
 	
-	public BufferedImage loadImage(String p)
-	{
-		try
-		{
+	public BufferedImage loadImage(String p) {
+		try {
 			BufferedImage i = ImageIO.read(GameFrame.class.getResource((p.startsWith("/") ? "" : "/img/") + p));
 			
 			return i;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return null;
 		}
 	}

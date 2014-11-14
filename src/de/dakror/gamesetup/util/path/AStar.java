@@ -9,26 +9,21 @@ import de.dakror.gamesetup.util.Vector;
 /**
  * @author Dakror
  */
-public abstract class AStar
-{
+public abstract class AStar {
 	public static ArrayList<Node> openList;
 	public static ArrayList<Node> closedList;
 	static Vector target;
 	
-	public synchronized static Path getPath(Vector start, Vector t, AStar method)
-	{
-		try
-		{
+	public synchronized static Path getPath(Vector start, Vector t, AStar method) {
+		try {
 			openList = new ArrayList<>();
 			closedList = new ArrayList<>();
 			
 			target = t;
 			
-			Comparator<Node> comparator = new Comparator<Node>()
-			{
+			Comparator<Node> comparator = new Comparator<Node>() {
 				@Override
-				public int compare(Node o1, Node o2)
-				{
+				public int compare(Node o1, Node o2) {
 					if (o1 == null || o2 == null) return 0;
 					
 					return Float.compare(o1.F, o2.F);
@@ -39,10 +34,8 @@ public abstract class AStar
 			
 			Node activeNode = null;
 			
-			while (true)
-			{
-				if (openList.size() == 0)
-				{
+			while (true) {
+				if (openList.size() == 0) {
 					return null; // no way
 				}
 				
@@ -51,8 +44,7 @@ public abstract class AStar
 				
 				closedList.add(activeNode);
 				
-				if (activeNode.H == 0)
-				{
+				if (activeNode.H == 0) {
 					break; // found way
 				}
 				
@@ -62,17 +54,14 @@ public abstract class AStar
 			ArrayList<Node> path = new ArrayList<>();
 			Node node = activeNode;
 			path.add(node.clone());
-			while (node.p != null)
-			{
+			while (node.p != null) {
 				path.add(node.p.clone());
 				node = node.p;
 			}
 			
 			Collections.reverse(path);
 			return toPath(path);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -80,8 +69,7 @@ public abstract class AStar
 	
 	protected abstract void handleNeighbors(Node node, Vector target, ArrayList<Node> openList, ArrayList<Node> closedList);
 	
-	public static Path toPath(ArrayList<Node> list)
-	{
+	public static Path toPath(ArrayList<Node> list) {
 		Path p = new Path();
 		
 		for (Node n : list)

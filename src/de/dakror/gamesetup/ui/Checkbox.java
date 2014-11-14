@@ -8,21 +8,17 @@ import de.dakror.gamesetup.util.Helper;
 /**
  * @author Dakror
  */
-public class Checkbox extends ClickableComponent
-{
+public class Checkbox extends ClickableComponent {
 	public static final int WIDTH = 44;
 	public static final int HEIGHT = 44;
 	
 	boolean selected;
 	
-	public Checkbox(int x, int y)
-	{
+	public Checkbox(int x, int y) {
 		super(x, y, WIDTH, HEIGHT);
-		addClickEvent(new ClickEvent()
-		{
+		addClickEvent(new ClickEvent() {
 			@Override
-			public void trigger()
-			{
+			public void trigger() {
 				selected = !selected;
 			}
 		});
@@ -30,8 +26,7 @@ public class Checkbox extends ClickableComponent
 	}
 	
 	@Override
-	public void draw(Graphics2D g)
-	{
+	public void draw(Graphics2D g) {
 		int tx = 138;
 		if (state == 2) tx = 183;
 		if (!enabled) tx = 228;
@@ -40,16 +35,13 @@ public class Checkbox extends ClickableComponent
 	}
 	
 	@Override
-	public void update(int tick)
-	{}
+	public void update(int tick) {}
 	
-	public boolean isSelected()
-	{
+	public boolean isSelected() {
 		return selected;
 	}
 	
-	public void setSelected(boolean selected)
-	{
+	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
 }

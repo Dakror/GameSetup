@@ -9,10 +9,8 @@ import de.dakror.gamesetup.util.Helper;
 /**
  * @author Dakror
  */
-public class ArrowButton extends ClickableComponent
-{
-	public enum ArrowType
-	{
+public class ArrowButton extends ClickableComponent {
+	public enum ArrowType {
 		MINUS_HOR(322, 5),
 		PLUS_HOR(360, 5),
 		MINUS_VER(419, 5),
@@ -26,8 +24,7 @@ public class ArrowButton extends ClickableComponent
 		
 		int x, y;
 		
-		private ArrowType(int x, int y)
-		{
+		private ArrowType(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
@@ -37,8 +34,7 @@ public class ArrowButton extends ClickableComponent
 	
 	int tx, ty;
 	
-	public ArrowButton(int x, int y, ArrowType type)
-	{
+	public ArrowButton(int x, int y, ArrowType type) {
 		super(x, y, 32, 52);
 		
 		tx = type.x;
@@ -46,8 +42,7 @@ public class ArrowButton extends ClickableComponent
 	}
 	
 	@Override
-	public void draw(Graphics2D g)
-	{
+	public void draw(Graphics2D g) {
 		int ty = this.ty + MARGIN * state;
 		
 		if (!enabled) ty = this.ty + MARGIN * 3;
@@ -56,6 +51,5 @@ public class ArrowButton extends ClickableComponent
 	}
 	
 	@Override
-	public void update(int tick)
-	{}
+	public void update(int tick) {}
 }

@@ -18,26 +18,22 @@ import de.dakror.gamesetup.util.Helper;
 /**
  * @author Dakror
  */
-public abstract class GameApplet extends GameFrame
-{
+public abstract class GameApplet extends GameFrame {
 	public static GameApplet currentApplet;
 	public static JApplet applet;
 	public static Dimension size;
 	
 	protected Canvas canvas;
 	
-	public GameApplet()
-	{
+	public GameApplet() {
 		currentApplet = this;
 	}
 	
 	@Override
 	@Deprecated
-	public void init(String title)
-	{}
+	public void init(String title) {}
 	
-	public void init(JApplet a)
-	{
+	public void init(JApplet a) {
 		applet = a;
 		
 		size = applet.getSize();
@@ -62,26 +58,21 @@ public abstract class GameApplet extends GameFrame
 	
 	@Override
 	@Deprecated
-	public void setFullscreen()
-	{}
+	public void setFullscreen() {}
 	
 	@Override
 	@Deprecated
-	public void setWindowed()
-	{}
+	public void setWindowed() {}
 	
 	@Override
 	@Deprecated
-	public void setWindowed(int width, int height)
-	{}
+	public void setWindowed(int width, int height) {}
 	
 	@Override
-	public void main()
-	{
+	public void main() {
 		if (start == 0) start = System.currentTimeMillis();
 		if (last == 0) last = System.currentTimeMillis();
-		if (System.currentTimeMillis() - last >= 1000)
-		{
+		if (System.currentTimeMillis() - last >= 1000) {
 			framesSolid = frames;
 			frames = 0;
 			last = System.currentTimeMillis();
@@ -90,13 +81,10 @@ public abstract class GameApplet extends GameFrame
 		BufferStrategy s = null;
 		Graphics2D g = null;
 		
-		try
-		{
+		try {
 			s = canvas.getBufferStrategy();
 			g = (Graphics2D) s.getDrawGraphics();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return;
 		}
 		
@@ -106,8 +94,7 @@ public abstract class GameApplet extends GameFrame
 		
 		draw(g);
 		
-		if (alpha > 0)
-		{
+		if (alpha > 0) {
 			Composite c1 = g.getComposite();
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 			
@@ -119,25 +106,20 @@ public abstract class GameApplet extends GameFrame
 		
 		g.dispose();
 		
-		try
-		{
+		try {
 			if (!s.contentsLost()) s.show();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return;
 		}
 		
 		frames++;
 	}
 	
-	public static int getWidth()
-	{
+	public static int getWidth() {
 		return size.width;
 	}
 	
-	public static int getHeight()
-	{
+	public static int getHeight() {
 		return size.height;
 	}
 }

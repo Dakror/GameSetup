@@ -12,8 +12,7 @@ import de.dakror.gamesetup.util.Helper;
 /**
  * @author Dakror
  */
-public class Slider extends ClickableComponent
-{
+public class Slider extends ClickableComponent {
 	HashMap<Float, String> customTitles;
 	
 	public static final int WIDTH = 205;
@@ -29,23 +28,18 @@ public class Slider extends ClickableComponent
 	private int stepSize;
 	public String title;
 	
-	public Slider(int x, int y, int size, int min, int max, boolean horizontal)
-	{
+	public Slider(int x, int y, int size, int min, int max, boolean horizontal) {
 		this(x, y, size, min, max, min, horizontal);
 	}
 	
-	public Slider(int x, int y, int size, int min, int max, int startValue, boolean horizontal)
-	{
+	public Slider(int x, int y, int size, int min, int max, int startValue, boolean horizontal) {
 		super(x, y, 0, 0);
 		this.x = x;
 		this.y = y;
-		if (horizontal)
-		{
+		if (horizontal) {
 			height = HEIGHT;
 			width = size;
-		}
-		else
-		{
+		} else {
 			height = size;
 			width = HEIGHT;
 		}
@@ -59,31 +53,25 @@ public class Slider extends ClickableComponent
 		customTitles = new HashMap<>();
 	}
 	
-	public void addCustomTitle(float value, String title)
-	{
+	public void addCustomTitle(float value, String title) {
 		customTitles.put(value, title);
 	}
 	
 	@Override
-	public void update(int tick)
-	{}
+	public void update(int tick) {}
 	
 	@Override
-	public void mouseDragged(MouseEvent e)
-	{
+	public void mouseDragged(MouseEvent e) {
 		if (e.getModifiers() == 16 && state != 0 && enabled) // LMB
 		{
-			if (!horizontal)
-			{
+			if (!horizontal) {
 				float percent = Helper.clamp(e.getY() - y - 8, 0, height - 18) / (height - 18) * 100;
 				
 				if (stepMode) percent = Helper.round(Math.round(percent), stepSize);
 				
 				sliderPos = percent / 100 * (height - 18) + 4;
 				value = Math.round((maxValue - minValue) * (percent / 100) + minValue);
-			}
-			else
-			{
+			} else {
 				float percent = Helper.clamp(e.getX() - x - 8, 0, width - 18) / (width - 18) * 100;
 				
 				if (stepMode) percent = Helper.round(Math.round(percent), stepSize);
@@ -95,11 +83,9 @@ public class Slider extends ClickableComponent
 	}
 	
 	@Override
-	public void draw(Graphics2D g)
-	{
+	public void draw(Graphics2D g) {
 		Image img = GameFrame.getImage("gui/gui.png");
-		if (horizontal)
-		{
+		if (horizontal) {
 			Helper.drawImage2(img, x, y, 7, height, 794, 72, 7, 20, g);
 			Helper.drawImage2(img, x + width - 7, y, 7, height, 994, 72, 7, 20, g);
 			
@@ -108,9 +94,7 @@ public class Slider extends ClickableComponent
 			Helper.drawImage2(img, x + 7 + (width - 14) / 193 * 193, y, (width - 14) % 193, height, 801, 72, (width - 14) % 193, 20, g);
 			
 			if (enabled) Helper.drawImage2(img, (int) (x + sliderPos - 5), y - (38 - height) / 2, 20, 35, 889, 16, 25, 44, g);
-		}
-		else
-		{
+		} else {
 			AffineTransform old = g.getTransform();
 			AffineTransform at = g.getTransform();
 			at.rotate(Math.toRadians(90), x + HEIGHT / 2, y + HEIGHT / 2);
@@ -134,29 +118,24 @@ public class Slider extends ClickableComponent
 		Helper.drawHorizontallyCenteredString(displayString, x, width, y - 5, g, 30);
 	}
 	
-	public void setIntegerMode(boolean b)
-	{
+	public void setIntegerMode(boolean b) {
 		integerMode = b;
 	}
 	
-	public float getValue()
-	{
+	public float getValue() {
 		return value;
 	}
 	
-	public void setStepSize(int f)
-	{
+	public void setStepSize(int f) {
 		stepSize = f / (maxValue - minValue) * 100;
 		stepMode = true;
 	}
 	
-	public void setTitle(String s)
-	{
+	public void setTitle(String s) {
 		title = s;
 	}
 	
-	public String getTitle()
-	{
+	public String getTitle() {
 		return title;
 	}
 }

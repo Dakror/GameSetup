@@ -5,15 +5,13 @@ import java.awt.Graphics2D;
 
 import de.dakror.gamesetup.util.Helper;
 
-public class Label extends Component
-{
+public class Label extends Component {
 	String text;
 	int size;
 	int margin;
 	Color color;
 	
-	public Label(int x, int y, String text)
-	{
+	public Label(int x, int y, String text) {
 		super(x, y, 1, 1);
 		this.text = text;
 		size = 25;
@@ -22,8 +20,7 @@ public class Label extends Component
 	}
 	
 	@Override
-	public void draw(Graphics2D g)
-	{
+	public void draw(Graphics2D g) {
 		Color c = g.getColor();
 		g.setColor(color);
 		
@@ -34,46 +31,37 @@ public class Label extends Component
 	}
 	
 	@Override
-	public void update(int tick)
-	{}
+	public void update(int tick) {}
 	
-	public String getText()
-	{
+	public String getText() {
 		return text;
 	}
 	
-	public void setText(String text)
-	{
+	public void setText(String text) {
 		this.text = text;
 	}
 	
-	public int getSize()
-	{
+	public int getSize() {
 		return size;
 	}
 	
-	public void setSize(int size)
-	{
+	public void setSize(int size) {
 		this.size = size;
 	}
 	
-	public int getMargin()
-	{
+	public int getMargin() {
 		return margin;
 	}
 	
-	public void setMargin(int margin)
-	{
+	public void setMargin(int margin) {
 		this.margin = margin;
 	}
 	
-	public Color getColor()
-	{
+	public Color getColor() {
 		return color;
 	}
 	
-	public void setColor(Color color)
-	{
+	public void setColor(Color color) {
 		this.color = color;
 	}
 }

@@ -10,8 +10,7 @@ import de.dakror.gamesetup.util.EventListener;
 /**
  * @author Dakror
  */
-public abstract class Component extends EventListener implements Drawable
-{
+public abstract class Component extends EventListener implements Drawable {
 	public int x, y, width, height;
 	/**
 	 * 0 = default<br>
@@ -21,8 +20,7 @@ public abstract class Component extends EventListener implements Drawable
 	public int state;
 	public boolean enabled;
 	
-	public Component(int x, int y, int width, int height)
-	{
+	public Component(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -31,69 +29,56 @@ public abstract class Component extends EventListener implements Drawable
 		enabled = true;
 	}
 	
-	public void drawTooltip(int x, int y, Graphics2D g)
-	{}
+	public void drawTooltip(int x, int y, Graphics2D g) {}
 	
-	public boolean contains(int x, int y)
-	{
+	public boolean contains(int x, int y) {
 		return new Rectangle(this.x, this.y, width, height).contains(x, y);
 	}
 	
-	public int getX()
-	{
+	public int getX() {
 		return x;
 	}
 	
-	public void setX(int x)
-	{
+	public void setX(int x) {
 		this.x = x;
 	}
 	
-	public int getY()
-	{
+	public int getY() {
 		return y;
 	}
 	
-	public void setY(int y)
-	{
+	public void setY(int y) {
 		this.y = y;
 	}
 	
-	public int getWidth()
-	{
+	public int getWidth() {
 		return width;
 	}
 	
-	public void setWidth(int width)
-	{
+	public void setWidth(int width) {
 		this.width = width;
 	}
 	
-	public int getHeight()
-	{
+	public int getHeight() {
 		return height;
 	}
 	
-	public void setHeight(int height)
-	{
+	public void setHeight(int height) {
 		this.height = height;
 	}
 	
 	@Override
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		if (contains(e.getX(), e.getY()) && enabled) state = 1;
 	}
 	
 	@Override
-	public void mouseReleased(MouseEvent e)
-	{
+	public void mouseReleased(MouseEvent e) {
 		if (contains(e.getX(), e.getY()) && enabled) state = 2;
 	}
 	
 	@Override
-	public void mouseMoved(MouseEvent e)
-	{
+	public void mouseMoved(MouseEvent e) {
 		state = contains(e.getX(), e.getY()) ? 2 : 0;
 	}
 }
