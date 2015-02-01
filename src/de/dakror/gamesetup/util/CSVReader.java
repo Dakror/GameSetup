@@ -95,7 +95,8 @@ public class CSVReader {
 				if (lineLength == -1) {
 					lineLength = segments.length;
 				}
-				if (lineLength != -1 && segments.length != lineLength) throw new Exception("Each row has to have exactly " + lineLength + " cells! \n    This row only has " + segments.length + ": " + l);
+				if (lineLength != -1 && segments.length != lineLength)
+					throw new Exception("Each row has to have exactly " + lineLength + " cells! \n    This row only has " + segments.length + ": " + l);
 				
 				lIndex = index;
 				index = 0;

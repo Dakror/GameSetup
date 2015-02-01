@@ -35,16 +35,23 @@ public class IconButton extends ClickableComponent {
 	@Override
 	public void draw(Graphics2D g) {
 		if (mode1) {
-			Helper.drawShadow(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, g);
-			if (state != 1) Helper.drawOutline(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, state == 1, g);
-			else Helper.drawContainer(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, false, false, shadow, g);
+			Helper.drawShadow(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height
+					+ (state > 0 && biggerOnHover ? 10 : 0) + 20, g);
+			if (state != 1) Helper.drawOutline(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width
+					+ (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, state == 1, g);
+			else Helper.drawContainer(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20,
+																height + (state > 0 && biggerOnHover ? 10 : 0) + 20, false, false, shadow, g);
 		} else if (mode2) {
-			Helper.drawContainer(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height + (state > 0 && biggerOnHover ? 10 : 0) + 20, doubled, state == 1, shadow, g);
+			Helper.drawContainer(x - (state > 0 && biggerOnHover ? 5 : 0) - 10, y - (state > 0 && biggerOnHover ? 5 : 0) - 10, width + (state > 0 && biggerOnHover ? 10 : 0) + 20, height
+					+ (state > 0 && biggerOnHover ? 10 : 0) + 20, doubled, state == 1, shadow, g);
 		}
 		
-		g.drawImage(img, x - (state > 0 && biggerOnHover ? 5 : 0), y - (state > 0 && biggerOnHover ? 5 : 0), width + (state > 0 && biggerOnHover ? 10 : 0), height + (state > 0 && biggerOnHover ? 10 : 0), null);
+		g.drawImage(img, x - (state > 0 && biggerOnHover ? 5 : 0), y - (state > 0 && biggerOnHover ? 5 : 0), width + (state > 0 && biggerOnHover ? 10 : 0), height
+				+ (state > 0 && biggerOnHover ? 10 : 0), null);
 		
-		if (!enabled) Helper.drawShadow(x - (state > 0 && biggerOnHover ? 5 : 0) - (mode1 ? 10 : 20), y - (state > 0 && biggerOnHover ? 5 : 0) - (mode1 ? 10 : 20), width + (state > 0 && biggerOnHover ? 10 : 0) + (mode1 ? 20 : 40), height + (state > 0 && biggerOnHover ? 10 : 0) + (mode1 ? 20 : 40), g);
+		if (!enabled)
+			Helper.drawShadow(x - (state > 0 && biggerOnHover ? 5 : 0) - (mode1 ? 10 : 20), y - (state > 0 && biggerOnHover ? 5 : 0) - (mode1 ? 10 : 20), width
+					+ (state > 0 && biggerOnHover ? 10 : 0) + (mode1 ? 20 : 40), height + (state > 0 && biggerOnHover ? 10 : 0) + (mode1 ? 20 : 40), g);
 	}
 	
 	public void setBiggerOnHover(boolean bigger) {
