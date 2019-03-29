@@ -31,7 +31,6 @@ public abstract class Updater extends Thread {
 	
 	public boolean closeRequested = false;
 	
-	
 	public Updater() {
 		setPriority(Thread.MAX_PRIORITY);
 		start();
@@ -47,8 +46,7 @@ public abstract class Updater extends Thread {
 			if (GameFrame.currentFrame.fade == true) {
 				if (GameFrame.currentFrame.alpha != GameFrame.currentFrame.fadeTo) {
 					float dif = GameFrame.currentFrame.fadeTo - GameFrame.currentFrame.alpha;
-					GameFrame.currentFrame.alpha += dif > 0 ? (dif > GameFrame.currentFrame.speed ? GameFrame.currentFrame.speed : dif) : (dif < -GameFrame.currentFrame.speed
-							? -GameFrame.currentFrame.speed : dif);
+					GameFrame.currentFrame.alpha += dif > 0 ? (dif > GameFrame.currentFrame.speed ? GameFrame.currentFrame.speed : dif) : (dif < -GameFrame.currentFrame.speed ? -GameFrame.currentFrame.speed : dif);
 				} else GameFrame.currentFrame.fade = false;
 			}
 			

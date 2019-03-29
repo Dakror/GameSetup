@@ -99,27 +99,23 @@ public class Helper {
 		
 		for (int i = 0; i < (width - cornerSize * 2) / lineWidth; i++)
 			drawImage(gui, x + cornerSize + i * lineWidth, y, lineWidth, lineThickness, m[0], c[1], lineWidth, lineThickness, g); // mt
-		drawImage(gui, x + cornerSize + (width - cornerSize * 2) / lineWidth * lineWidth, y, (width - cornerSize * 2) % lineWidth, lineThickness, m[0], c[1],
-							((width - cornerSize * 2) % lineWidth), lineThickness, g);
+		drawImage(gui, x + cornerSize + (width - cornerSize * 2) / lineWidth * lineWidth, y, (width - cornerSize * 2) % lineWidth, lineThickness, m[0], c[1], ((width - cornerSize * 2) % lineWidth), lineThickness, g);
 		
 		drawImage(gui, x + width - cornerSize, y, cornerSize, cornerSize, c[3], c[1], cornerSize, cornerSize, g); // rt
 		
 		for (int i = 0; i < (height - cornerSize * 2) / lineHeight; i++)
 			drawImage(gui, x, y + cornerSize + i * lineHeight, lineThickness, lineHeight, c[0], m[1], lineThickness, lineHeight, g); // ml
-		drawImage(gui, x, y + cornerSize + (height - cornerSize * 2) / lineHeight * lineHeight, lineThickness, (height - cornerSize * 2) % lineHeight, c[0], m[1], lineThickness,
-							((height - cornerSize * 2) % lineHeight), g);
+		drawImage(gui, x, y + cornerSize + (height - cornerSize * 2) / lineHeight * lineHeight, lineThickness, (height - cornerSize * 2) % lineHeight, c[0], m[1], lineThickness, ((height - cornerSize * 2) % lineHeight), g);
 		
 		for (int i = 0; i < (height - cornerSize * 2) / lineHeight; i++)
 			drawImage(gui, x + width - lineThickness, y + cornerSize + i * lineHeight, lineThickness, lineHeight, m[3], m[1], lineThickness, lineHeight, g); // mr
-		drawImage(gui, x + width - lineThickness, y + cornerSize + (height - cornerSize * 2) / lineHeight * lineHeight, lineThickness, (height - cornerSize * 2) % lineHeight, m[3],
-							m[1], lineThickness, ((height - cornerSize * 2) % lineHeight), g);
+		drawImage(gui, x + width - lineThickness, y + cornerSize + (height - cornerSize * 2) / lineHeight * lineHeight, lineThickness, (height - cornerSize * 2) % lineHeight, m[3], m[1], lineThickness, ((height - cornerSize * 2) % lineHeight), g);
 		
 		drawImage(gui, x, y + height - cornerSize, cornerSize, cornerSize, c[0], c[2], cornerSize, cornerSize, g); // lb
 		
 		for (int i = 0; i < (width - cornerSize * 2) / lineWidth; i++)
 			drawImage(gui, x + cornerSize + i * lineWidth, y + height - lineThickness, lineWidth, lineThickness, m[0], m[2], lineWidth, lineThickness, g); // mb
-		drawImage(gui, x + cornerSize + (width - cornerSize * 2) / lineWidth * lineWidth, y + height - lineThickness, (width - cornerSize * 2) % lineWidth, lineThickness, m[0], m[2],
-							((width - cornerSize * 2) % lineWidth), lineThickness, g);
+		drawImage(gui, x + cornerSize + (width - cornerSize * 2) / lineWidth * lineWidth, y + height - lineThickness, (width - cornerSize * 2) % lineWidth, lineThickness, m[0], m[2], ((width - cornerSize * 2) % lineWidth), lineThickness, g);
 		
 		drawImage(gui, x + width - cornerSize, y + height - cornerSize, cornerSize, cornerSize, c[3], c[2], cornerSize, cornerSize, g); // rb
 		
@@ -390,6 +386,7 @@ public class Helper {
 	}
 	
 	public static String getURLContent(URL u) {
+		System.out.println(u);
 		String res = "", line = "";
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(u.openStream()));
@@ -399,6 +396,7 @@ public class Helper {
 		} catch (IOException e) {
 			return null;
 		}
+		System.out.println(res);
 		return res;
 	}
 	
